@@ -10,7 +10,7 @@ function App() {
 
 
     return (
-        <>
+        <div className="outer-flex-container">
             <NavBar/>
     <Routes>
         <Route path="/" element={<Home/>}/>
@@ -19,7 +19,7 @@ function App() {
         <Route path="/for-parents" element={<ForParents/>}/>
     </Routes>
 
-        </>
+        </div>
     )
 }
 

@@ -6,6 +6,7 @@ function Home() {
     return (
         <>
             <Header/>
+            <h3>Search for recipes</h3>
         </>
     )
 }
