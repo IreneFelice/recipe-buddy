@@ -1,62 +1,31 @@
-// import {useEffect, useState} from "react";
+import {useState} from "react";
 // import Header from "../../components/header/Header.jsx";
-// import axios from "axios";
-
+import axios from "axios";
+import './Home.css';
 
 function Home() {
-    const exludedFood = "eggplant";
-// const [foundRecipes, setFoundRecipes] = useState({});
+    // const [error, setError] = useState(false);
+    const [foundRecipes, setFoundRecipes] = useState([]);
+    const excludedFood = "eggplant";
 
-//     useEffect (()=>{
-//         async function searchRecipes (){
-//             try {
-//                 const response = await axios.get('https://api.edamam.com/api/recipes/v2', {
-//                     params: {
-//                         type: 'public',
-//                         app_id: '',
-//                         app_key: '',
-//                         ingr: '5-8',
-//                         diet: 'low-fat',
-//                         health: 'alcohol-free',
-//                         excluded: 'eggplant',
-//                         random: 'true',
-//                         field: [
-//                             'uri', 'label', 'image', 'images', 'source', 'url', 'shareAs',
-//                             'yield', 'dietLabels', 'healthLabels', 'ingredients', 'totalTime', 'mealType', 'tags'
-//                         ],
-//                     },
-//                 });
-//                 // setFoundRecipes(response.data);
-//                 console.log(response);
-//             } catch (e) {
-//                 console.error("Niet gelukt", e);
-//             }
-//         }
-//         searchRecipes();
-//     },[]);
-//
-//     return (
-//         <>
-//             <Header/>
-//             <h3>Search for recipes</h3>
-//             {/*{Object.keys(foundRecipes).length > 0 ?*/}
-//             {/*    <p>{foundRecipes.data}</p> : <p>not found</p>*/}
-//             {/*}*/}
-//
-//         </>
-//     )
-// }
+    async function handleSearchRecipesSubmit(e) {
+        e.preventDefault();
 
-    async function fetchRecipes() {
+        const selectedMealTypes = Array.from(
+            document.querySelectorAll('input[name="mealType"]:checked')
+        ).map((checkbox) => checkbox.value);
+
+
         const baseUrl = 'https://api.edamam.com/api/recipes/v2';
         const queryParams = [
             'type=public',
             `app_id=${import.meta.env.VITE_API_ID}`,
             `app_key=${import.meta.env.VITE_API_KEY}`,
             'ingr=5-8',
-            'diet=low-fat',
+            // `calories=0-${maxCalories}`,
+            ...selectedMealTypes.map((mealType) => `mealType=${mealType.toLowerCase()}`),
             'health=alcohol-free',
-            `excluded=${exludedFood}`,
+            `excluded=${excludedFood}`,
             'random=true',
             'field=uri',
             'field=label',
@@ -77,24 +46,59 @@ function Home() {
         const fullUrl = `${baseUrl}?${queryParams}`;
 
         try {
-            const response = await fetch(fullUrl);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+            const response = await axios.get(fullUrl);
+
+            if (response.status !== 200) {
+                console.error(`HTTP error! status: ${response.status}`);
             }
-            const data = await response.json();
-            console.log(data);
-        } catch (error) {
-            console.error('Error fetching recipes:', error);
+
+            const recipes = response.data.hits || [];
+            const limitedRecipes = recipes.slice(0, 6);
+
+            setFoundRecipes(limitedRecipes);
+            console.log(limitedRecipes);
+        } catch (e) {
+            console.error("failed search request", e);
         }
     }
 
-    fetchRecipes();
 
     return (
-        <>
-        <h1>Home</h1>
+        <>    <h3>Search for recipes</h3>
+            <form onSubmit={handleSearchRecipesSubmit}>
+                <label htmlFor="mealTypeBreakfast">Breakfast</label>
+                <input type="checkbox" id="mealTypeBreakfast" name="mealType" value="Breakfast"/>
+
+                    <label htmlFor="mealTypeLunch">Lunch</label>
+                    <input type="checkbox" id="mealTypeLunch" name="mealType" value="Lunch"/>
+
+                        <label htmlFor="mealTypeDinner">Dinner</label>
+                        <input type="checkbox" id="mealTypeDinner" name="mealType" value="Dinner"/>
+
+                            <button type="submit">Search!</button>
+            </form>
+            <p>results</p>
+          {foundRecipes.length > 0 && (
+            <ul>
+        {foundRecipes.map((result, index) => (
+            <li className="resultBlock" key={index}>
+            <h5>{result.recipe.label}</h5>
+            <img
+                src={result.recipe.image}
+                alt={result.recipe.label}
+                style={{width: "100px", height: "100px"}}
+            />
+            <p><a href={result.recipe.url} target="_blank" rel="noopener noreferrer">View Recipe</a>
+            </p>
+        </li>
+        ))}
+        </ul>
+    )}
+
         </>
-    )
-    }
+
+);
+
+}
 
 export default Home;
