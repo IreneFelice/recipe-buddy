@@ -2,20 +2,28 @@ import {useState} from "react";
 // import Header from "../../components/header/Header.jsx";
 import axios from "axios";
 import './Home.css';
+import MultiselectDiet from "../../components/buttons/multiselect-diet/MultiselectDiet.jsx";
 
 function Home() {
     // const [error, setError] = useState(false);
     const [foundRecipes, setFoundRecipes] = useState([]);
+    const [selectedMealTypes, setSelectedMealTypes] = useState([]); // State voor geselecteerde maaltijdtypes
     const excludedFood = "eggplant";
+
+    const handleMealTypeChange = (mealType) => {
+        setSelectedMealTypes((prevMealTypes) => {
+            if (prevMealTypes.includes(mealType)) {
+                return prevMealTypes.filter((type) => type !== mealType);
+            } else {
+                return [...prevMealTypes, mealType];
+            }
+        });
+    };
 
     async function handleSearchRecipesSubmit(e) {
         e.preventDefault();
 
-        const selectedMealTypes = Array.from(
-            document.querySelectorAll('input[name="mealType"]:checked')
-        ).map((checkbox) => checkbox.value);
-
-
+        const mealTypeParams = selectedMealTypes.map((mealType) => `mealType=${mealType.toLowerCase()}`).join('&');
         const baseUrl = 'https://api.edamam.com/api/recipes/v2';
         const queryParams = [
             'type=public',
@@ -23,7 +31,7 @@ function Home() {
             `app_key=${import.meta.env.VITE_API_KEY}`,
             'ingr=5-8',
             // `calories=0-${maxCalories}`,
-            ...selectedMealTypes.map((mealType) => `mealType=${mealType.toLowerCase()}`),
+            mealTypeParams,
             'health=alcohol-free',
             `excluded=${excludedFood}`,
             'random=true',
@@ -64,21 +72,52 @@ function Home() {
 
 
     return (
-        <>    <h3>Search for recipes</h3>
+        <>
+        <h3>Search for recipes</h3>
             <form onSubmit={handleSearchRecipesSubmit}>
-                <label htmlFor="mealTypeBreakfast">Breakfast</label>
-                <input type="checkbox" id="mealTypeBreakfast" name="mealType" value="Breakfast"/>
-
+                <div>
+                    <label htmlFor="mealTypeBreakfast">Breakfast</label>
+                    <input
+                        type="checkbox"
+                        id="mealTypeBreakfast"
+                        name="mealType"
+                        value="Breakfast"
+                        checked={selectedMealTypes.includes('Breakfast')}
+                        onChange={() => handleMealTypeChange('Breakfast')}
+                    />
+                </div>
+                <div>
                     <label htmlFor="mealTypeLunch">Lunch</label>
-                    <input type="checkbox" id="mealTypeLunch" name="mealType" value="Lunch"/>
-
-                        <label htmlFor="mealTypeDinner">Dinner</label>
-                        <input type="checkbox" id="mealTypeDinner" name="mealType" value="Dinner"/>
-
+                    <input
+                        type="checkbox"
+                        id="mealTypeLunch"
+                        name="mealType"
+                        value="Lunch"
+                        checked={selectedMealTypes.includes('Lunch')}
+                        onChange={() => handleMealTypeChange('Lunch')}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="mealTypeDinner">Dinner</label>
+                    <input
+                        type="checkbox"
+                        id="mealTypeDinner"
+                        name="mealType"
+                        value="Dinner"
+                        checked={selectedMealTypes.includes('Dinner')}
+                        onChange={() => handleMealTypeChange('Dinner')}
+                    />
+                </div>
+                    <p>{selectedMealTypes}</p>
                             <button type="submit">Search!</button>
+
+                <MultiselectDiet />
             </form>
-            <p>results</p>
+
+            <p>queryParams: {queryParams}</p>
+
           {foundRecipes.length > 0 && (
+             <div><h3>Results:</h3>
             <ul>
         {foundRecipes.map((result, index) => (
             <li className="resultBlock" key={index}>
@@ -92,8 +131,8 @@ function Home() {
             </p>
         </li>
         ))}
-        </ul>
-    )}
+        </ul></div>
+)}
 
         </>
 
