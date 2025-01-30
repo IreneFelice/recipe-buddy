@@ -1,101 +1,78 @@
 import {useState} from "react";
-import MultiselectDiet from "../buttons/multiselect-diet/MultiselectDiet.jsx";
-
+import MultiselectDiet from "./input-sections/multiselect-diet/MultiselectDiet.jsx";
+import MealType from "./input-sections/meal-type/MealType.jsx";
 
 function SearchDashboard({passUrl}) {
-    const [selectedMealTypes, setSelectedMealTypes] = useState([]); // State voor geselecteerde maaltijdtypes
+
+    //----- DIET PREFERENCES ------//
+    const [mealTypeParams, setMealTypeParams] = useState('');
+    const [dietParams, setDietParams] = useState('');
     const excludedFood = "eggplant";
+
+    console.log("mealTypeParams: ", mealTypeParams);
+    // console.log("excludedFood: ", excludedFood);
+    console.log("dietParams: ", dietParams);
+
+    //------ DIFFICULTY -------//
+    // ingr (number of ingredients)
+    // time
+
+    // ------ (UN)HEALTHY -----//
+    // Calories
+    // glycemicIndex
+    // nutrients[SUGAR]
+    // nutrients[SUGAR.added]
+    // nutrients[VITC] // Vitaminen-C-score (relatief, % van ADH)
+    // nutrients[FASAT] (verzadigde vetzuren, niet gezond)
+    // nutrients[FAMS] (monounsaturated fats, wel gezond!)
+    // nutrients[FIBTG] (fiber/vezels)
+    // nutrients[PROCNT] (protein)
 
     function handleSearchSubmit(e) {
         e.preventDefault();
+        const baseUrl = 'https://api.edamam.com/api/recipes/v2';
+        const queryParams = [
+            'type=public',
+            `app_id=${import.meta.env.VITE_API_ID}`,
+            `app_key=${import.meta.env.VITE_API_KEY}`,
+            'random=true',
+            `mealType=${mealTypeParams}`,
+            `excluded=${excludedFood}`,
+            `health=${dietParams}`,
+            'health=alcohol-free',
+            'field=uri',
+            'field=label',
+            'field=image',
+            'field=source',
+            'field=url',
+            // 'field=ingredientLines',
+            // 'field=healthLabels',
+            'field=ingredients',
+            // 'field=totalTime',
+            // 'field=mealType',
+            // 'field=glycemicIndex',
+            // 'field=calories',
+            // 'field=inflammatoryIndex',
+            // 'field=totalNutrients',
+            // 'field=digest',
+            // 'field=externalId',
+        ].join('&');
+
+        const fullUrlInput = `${baseUrl}?${queryParams}`;
+        console.log("queryParams:", queryParams);
         passUrl(fullUrlInput);
     }
 
-    // meal type select (breakfast, dinner, etc)
-    const handleMealTypeChange = (mealType) => {
-        setSelectedMealTypes((prevMealTypes) => {
-            if (prevMealTypes.includes(mealType)) {
-                return prevMealTypes.filter((type) => type !== mealType);
-            } else {
-                return [...prevMealTypes, mealType];
-            }
-        });
-    };
-
-    const mealTypeParams = selectedMealTypes.map((mealType) => `mealType=${mealType.toLowerCase()}`).join('&');
-
-    const baseUrl = 'https://api.edamam.com/api/recipes/v2';
-    const queryParams = [
-        'type=public',
-        `app_id=${import.meta.env.VITE_API_ID}`,
-        `app_key=${import.meta.env.VITE_API_KEY}`,
-        mealTypeParams,
-        'health=alcohol-free',
-        `excluded=${excludedFood}`,
-        'random=true',
-        'field=uri',
-        'field=label',
-        'field=image',
-        'field=images',
-        'field=source',
-        'field=url',
-        'field=shareAs',
-        'field=yield',
-        'field=dietLabels',
-        'field=healthLabels',
-        'field=ingredients',
-        'field=totalTime',
-        'field=mealType',
-        'field=tags'
-    ].join('&');
-
-    const fullUrlInput = `${baseUrl}?${queryParams}`;
-
-
-
     return (
-    <>
-        <form onSubmit={handleSearchSubmit}>
-            <div>
-                <label htmlFor="mealTypeBreakfast">Breakfast</label>
-                <input
-                    type="checkbox"
-                    id="mealTypeBreakfast"
-                    name="mealType"
-                    value="Breakfast"
-                    checked={selectedMealTypes.includes('Breakfast')}
-                    onChange={() => handleMealTypeChange('Breakfast')}
-                />
-            </div>
-            <div>
-                <label htmlFor="mealTypeLunch">Lunch</label>
-                <input
-                    type="checkbox"
-                    id="mealTypeLunch"
-                    name="mealType"
-                    value="Lunch"
-                    checked={selectedMealTypes.includes('Lunch')}
-                    onChange={() => handleMealTypeChange('Lunch')}
-                />
-            </div>
-            <div>
-                <label htmlFor="mealTypeDinner">Dinner</label>
-                <input
-                    type="checkbox"
-                    id="mealTypeDinner"
-                    name="mealType"
-                    value="Dinner"
-                    checked={selectedMealTypes.includes('Dinner')}
-                    onChange={() => handleMealTypeChange('Dinner')}
-                />
-            </div>
-            <p>{selectedMealTypes}</p>
+        <>
+            <form onSubmit={handleSearchSubmit}>
+                <MealType passParams={setMealTypeParams}/>
+                <MultiselectDiet passParams={setDietParams}/>
 
-            <MultiselectDiet />
+                <button type="submit">Search recipes!</button>
 
-        <button type="submit">Search recipes!</button>
-    </form>
-    </>
+            </form>
+        </>
 
     )
 }
