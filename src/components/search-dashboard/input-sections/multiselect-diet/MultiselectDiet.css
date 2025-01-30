@@ -1,15 +1,14 @@
-/* Algemene stijlen voor de dropdown */
+
 .multi-select-dropdown {
     font-family: Arial, sans-serif;
     width: 250px;
     position: relative;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 8px;
     background-color: #fff;
     overflow: hidden;
 }
 
-/* Stijlen voor de balk waarop je klikt om de dropdown te openen */
 .dropdown-display {
     padding: 10px;
     background-color: #f9f9f9;
@@ -20,27 +19,23 @@
     user-select: none;
 }
 
-/* De pijl in de dropdown */
 #dropdown-arrow {
     font-size: 14px;
     color: #888;
 }
 
-/* De opties in de dropdown (standaard verborgen) */
 .dropdown-options {
-    max-height: 0;  /* Begint met een hoogte van 0 zodat het verborgen is */
+    max-height: 0;  /* 0 because hidden */
     overflow: hidden;
-    transition: max-height 0.3s ease; /* Animatie voor openen/sluiten */
-    border-top: 1px solid #ccc;
+    transition: max-height 0.3s ease;
+    border-top: 1px solid rgba(139, 113, 164, 0.9);
 }
 
-/* Wanneer de dropdown open is, wordt de max-height vergroot zodat de opties zichtbaar worden */
 .dropdown-options.open {
-    max-height: 200px;  /* Max hoogte van de dropdown als het geopend is */
-    overflow-y: auto;  /* Laat scrollen toe als er meer opties zijn dan het scherm kan tonen */
+    max-height: 200px;
+    overflow-y: auto;
 }
 
-/* Stijlen voor de individuele opties in de dropdown */
 .dropdown-option {
     padding: 10px;
     cursor: pointer;
@@ -48,19 +43,16 @@
     transition: background-color 0.2s ease;
 }
 
-/* Hover-effect voor opties */
 .dropdown-option:hover {
     background-color: #f1f1f1;
 }
 
-/* De geselecteerde opties krijgen een andere achtergrondkleur en tekstkleur */
 .dropdown-option.selected {
-    background-color: #007bff;
+    background-color: purple;
     color: white;
     font-weight: bold;
 }
 
-/* Stijlen voor de scrollbar in de dropdown */
 .dropdown-options::-webkit-scrollbar {
     width: 8px;
 }

@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import './MultiselectDiet.css';
+import paramsToString from '../../../../helpers/paramsToString.js';
 
 //----- Dropdown diet-selector -----//
-// API name for dietParams is health!
+// API query name for dietParams is 'health'!
 
 // Available health options from API:
 //
@@ -46,8 +47,8 @@ import './MultiselectDiet.css';
 function MultiselectDiet({passParams}) {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [selectedOptions, setSelectedOptions] = useState([]);
-    const dietParams = selectedOptions.map((dietOption) => dietOption.toLowerCase()).join('&health=');
-
+    const queryName = 'health';
+    const dietParams = paramsToString(selectedOptions, queryName);
 
     const options = ['vegetarian', 'vegan', 'gluten-free'];
 

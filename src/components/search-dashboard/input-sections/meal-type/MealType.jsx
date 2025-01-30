@@ -1,10 +1,12 @@
 import {useEffect, useState} from "react";
+import paramsToString from "../../../../helpers/paramsToString.js";
 
-// Checkbox: Meal type select (breakfast, dinner, lunch)
+// Checkbox: MealType select (breakfast, dinner, lunch)
 
 function MealType({passParams}) {
     const [selectedMealTypes, setSelectedMealTypes] = useState([]);
-    const mealTypeParams = selectedMealTypes.map((mealType) => mealType.toLowerCase()).join('&mealType=');
+    const queryName = 'mealType';
+    const mealTypeParams = paramsToString(selectedMealTypes, queryName);
 
     const handleMealTypeChange = (mealType) => {
         setSelectedMealTypes((prevMealTypes) => {

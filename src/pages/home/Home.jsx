@@ -9,16 +9,14 @@ function Home() {
     const [fullUrl, setFullUrl] = useState('');
     const [foundRecipes, setFoundRecipes] = useState([]);
 
-
     // ////////// get Data /////////////////////////
-    useEffect(() => {
         if (fullUrl) {
-            console.log("Hier is een url: ", fullUrl);
+            console.log("request url found");
 
             const getRecipes = async () => {
                 try {
                     const response = await axios.get(fullUrl);
-                    console.log("welke response krijg ik terug?", response);
+
                     if (response.status !== 200) {
                         console.error(`HTTP error! status: ${response.status}`);
                     }
@@ -27,24 +25,21 @@ function Home() {
                     const limitedAmountRecipes = recipes.slice(0, 6);
 
                     setFoundRecipes(limitedAmountRecipes);
-                    console.log(limitedAmountRecipes);
+                    setFullUrl('');
                 } catch (e) {
                     console.error("failed search request", e);
                 }
             };
-            void getRecipes();
-            setFullUrl('');
+          getRecipes();
+        } else {
+            console.log("fullUrl is empty");
         }
-
-    }, [fullUrl]);
-
 
     return (
         <>
             <h3>Search recipes here</h3>
             <SearchDashboard passUrl={setFullUrl}/>
-
-            {foundRecipes?.length > 0 && <PresentedSearchResults results={foundRecipes} />}
+            {foundRecipes?.length > 0 && <PresentedSearchResults results={foundRecipes} resetResults={setFoundRecipes} />}
         </>
 
     );
