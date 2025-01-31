@@ -38,6 +38,7 @@ function Home() {
     return (
         <>
             <h3>Search recipes here</h3>
+            <h2>Have fun!</h2>
             <SearchDashboard passUrl={setFullUrl}/>
             {foundRecipes?.length > 0 && <PresentedSearchResults results={foundRecipes} resetResults={setFoundRecipes} />}
         </>
