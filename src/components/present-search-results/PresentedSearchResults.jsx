@@ -1,7 +1,6 @@
 import './PresentedSearchResults.css';
 
 function PresentedSearchResults({results}) {
-
     return (
         <div className="results-outer-container">
             <section className="results-container">

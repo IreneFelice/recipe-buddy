@@ -1,65 +1,23 @@
-import {useEffect, useState} from "react";
-import paramsToString from "../../../../helpers/paramsToString.js";
-
 // Checkbox: MealType select (breakfast, dinner, lunch)
-
-function MealType({passParams}) {
-    const [selectedMealTypes, setSelectedMealTypes] = useState([]);
-    const queryName = 'mealType';
-    const mealTypeParams = paramsToString(selectedMealTypes, queryName);
-
-    const handleMealTypeChange = (mealType) => {
-        setSelectedMealTypes((prevMealTypes) => {
-            if (prevMealTypes.includes(mealType)) {
-                return prevMealTypes.filter((type) => type !== mealType);
-            } else {
-                return [...prevMealTypes, mealType];
-            }
-        });
-    };
-
-    useEffect(() => {
-        passParams(mealTypeParams);
-    }, [mealTypeParams]);
-
+function MealType({ setValue, register }) {
+    const mealTypes = ["breakfast", "lunch", "dinner"];
 
     return (
-        <>
-            <div>
-                <label htmlFor="mealTypeBreakfast">Breakfast</label>
-                <input
-                    type="checkbox"
-                    id="mealTypeBreakfast"
-                    name="mealType"
-                    value="Breakfast"
-                    checked={selectedMealTypes.includes('Breakfast')}
-                    onChange={() => handleMealTypeChange('Breakfast')}
-                />
-            </div>
-            <div>
-                <label htmlFor="mealTypeLunch">Lunch</label>
-                <input
-                    type="checkbox"
-                    id="mealTypeLunch"
-                    name="mealType"
-                    value="Lunch"
-                    checked={selectedMealTypes.includes('Lunch')}
-                    onChange={() => handleMealTypeChange('Lunch')}
-                />
-            </div>
-            <div>
-                <label htmlFor="mealTypeDinner">Dinner</label>
-                <input
-                    type="checkbox"
-                    id="mealTypeDinner"
-                    name="mealType"
-                    value="Dinner"
-                    checked={selectedMealTypes.includes('Dinner')}
-                    onChange={() => handleMealTypeChange('Dinner')}
-                />
-
-            </div>
-        </>)
+        <div>
+            {mealTypes.map((meal) => (
+                <div key={meal}>
+                    <label htmlFor={`mealType-${meal}`}>{meal}</label>
+                    <input
+                        type="checkbox"
+                        id={`mealType-${meal}`}
+                        value={meal}
+                        {...register("mealType")}
+                    />
+                </div>
+            ))}
+        </div>
+    );
 }
 
 export default MealType;
+

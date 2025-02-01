@@ -1,4 +1,5 @@
 .outer-nav-container {
+    background-color: #FCA91B;;
     display: flex;
     flex-direction: column;
     height: 80px;

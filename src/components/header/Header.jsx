@@ -1,9 +1,11 @@
+import './Header.css';
+
 function Header() {
 
     return (
-        <>
-            <h1>Header Recipe Buddy</h1>
-        </>
+        <div className="header-container">
+            <h1>Recipe Buddy</h1>
+        </div>
     )
 }
 
