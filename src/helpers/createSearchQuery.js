@@ -1,7 +1,7 @@
 
 function createSearchQuery({ mealTypeParams, dietParams, difficulty, excludedFood }) {
     const baseUrl = 'https://api.edamam.com/api/recipes/v2';
-
+    console.log("mealType:", mealTypeParams);
     const queryParams = [
         'type=public',
         `app_id=${import.meta.env.VITE_API_ID}`,
@@ -20,7 +20,7 @@ function createSearchQuery({ mealTypeParams, dietParams, difficulty, excludedFoo
         'field=url',
         'field=ingredients',
     ];
-
+    console.log("query: ", queryParams);
     return `${baseUrl}?${queryParams.join('&')}`;
 }
 

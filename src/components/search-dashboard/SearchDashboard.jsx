@@ -8,7 +8,7 @@ import createSearchQuery from "../../helpers/createSearchQuery.js";
 function SearchDashboard({ passUrl }) {
     const { register, handleSubmit, setValue} = useForm({
         defaultValues: {
-            meal: [],
+            mealType: [],
             diet: [],
             difficulty: { time: "0-15", ingr: "1-5" }
         }
@@ -16,29 +16,25 @@ function SearchDashboard({ passUrl }) {
 
     const excludedFood = "eggplant";
 
-    const onSearchSubmit = (data) => {
+    const handleSearchSubmit = (data) => {
         console.log(data, "=data");
         const fullUrlInput = createSearchQuery({
-            mealTypeParams: data.meal,
+            mealTypeParams: data.mealType,
             dietParams: data.diet,
             difficulty: data.difficulty,
             excludedFood,
         });
-
+        console.log("url: ", fullUrlInput);
         passUrl(fullUrlInput);
     };
 
     return (
         <div className="dashboard-outer-container">
-            <form onSubmit={handleSubmit(onSearchSubmit)}>
-                <div className="input-container">
-                    <MealType register={register} />
-                    <MultiselectDiet register={register} />
-                    <DifficultySlider setValue={setValue} />
-                </div>
-                <div className="button-container">
-                    <button type="submit">Search recipes!</button>
-                </div>
+            <form onSubmit={handleSubmit(handleSearchSubmit)}>
+                <MealType register={register} />
+                <MultiselectDiet register={register} />
+                <DifficultySlider setValue={setValue} />
+                <button type="submit">Search recipes</button>
             </form>
         </div>
     );

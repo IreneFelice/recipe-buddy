@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-// import axios from "axios";
+import axios from "axios";
 import testResponse from '../../constants/testResponse.json';
 import './Home.css';
 import Header from "../../components/header/Header.jsx";
@@ -11,6 +11,25 @@ function Home() {
     const [isLoading, setIsLoading] = useState(false);
     const [fullUrl, setFullUrl] = useState('');
     const [foundRecipes, setFoundRecipes] = useState([]);
+
+    // TEST NOVI BACKEND //
+    // useEffect(() => {
+    //     async function getInfo() {
+    //     try {
+    //         const infoResponse = await axios.get('https://api.datavortex.nl/recipebuddy/info', {
+    //             headers: {
+    //
+    //             }
+    //         });
+    //         console.log("response backend: ", infoResponse);
+    //     } catch (e) {
+    //         console.error(e);
+    //     }
+    // }
+    // getInfo();
+    // }, []);
+    //
+
 
 
     //////////// get Data /////////////////////////
