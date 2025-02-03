@@ -3,7 +3,7 @@ import {useContext} from 'react';
 import './Login.css';
 import LoginForm from '../../components/forms/login-form/LoginForm.jsx';
 import {useEffect, useState} from 'react';
-import RegisterForm from '../../components/forms/register-form/RegisterForm.jsx';
+import FormRegister from '../../components/forms/register-form/FormRegister.jsx';
 
 function LoginPage() {
     const [error, setError] = useState("");
@@ -12,8 +12,6 @@ function LoginPage() {
     const [showLogin, toggleShowLogin] = useState(true);
     const [newName, setNewName] = useState("");
     const { isAuth } = useContext(AuthContext);
-
-
 
     function handleClickNewHere() {
         toggleShowRegister(true);
@@ -28,11 +26,20 @@ function LoginPage() {
         }
     }, [newName]);
 
+    useEffect(()=>{if (isAuth) {
+        toggleShowRegister(false);
+        toggleShowLogin(false);
+        toggleNewHere(false);
+    } else {
+        toggleShowRegister(false);
+        toggleShowLogin(true);
+        toggleNewHere(true);
+    }
+    },[isAuth]);
+
 
 
     return (
-        <>
-
             <div className="login-outer-container">
 
                 <div className="login-container">
@@ -49,11 +56,11 @@ function LoginPage() {
                     </span>
                 }
                 <div className="register-container">
-                    {showRegister && <RegisterForm errorMessage={setError} newName={setNewName}/>}
+                    {showRegister && <FormRegister errorMessage={setError} newName={setNewName}/>}
                 </div>
 
             </div>
-        </>
+
     );
 }
 

@@ -1,7 +1,12 @@
-import {NavLink} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import './NavBar.css';
+import { AuthContext } from "../../context/AuthContext.jsx";
+import {useContext} from "react";
 
 function NavBar() {
+    const navigate = useNavigate();
+    const { isAuth, logout } = useContext(AuthContext);
+
     return (
         <div className="outer-nav-container">
             <div className="inner-nav-container">
@@ -12,8 +17,17 @@ function NavBar() {
                     book</NavLink></li>
             </ul>
             <ul className="nav-list-container right">
-                <li><NavLink to="/login" className={({isActive}) => isActive ? 'active' : 'default'}>Login</NavLink>
-                </li>
+                {!isAuth && <li><NavLink to="/login" className={({isActive}) => isActive ? 'active' : 'default'}>Login</NavLink>
+                </li>}
+                {isAuth &&  <button
+                    type="button"
+                    className="logout-button"
+                    onClick={() => {
+                        logout();
+                        navigate('/');
+                    }}>
+                   Log out
+                </button>}
                 <li><NavLink to="/for-parents" className={({isActive}) => isActive ? 'active' : 'default'}>For
                     Parents</NavLink></li>
             </ul>
