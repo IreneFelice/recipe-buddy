@@ -1,35 +1,18 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import testResponse from '../../constants/testResponse.json';
 import './Home.css';
 import Header from "../../components/header/Header.jsx";
 import SearchDashboard from "../../components/search-dashboard/SearchDashboard.jsx";
 import PresentedSearchResults from "../../components/present-search-results/PresentedSearchResults.jsx";
+import {AuthContext} from "../../context/AuthContext.jsx";
 
 function Home() {
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [fullUrl, setFullUrl] = useState('');
     const [foundRecipes, setFoundRecipes] = useState([]);
-
-    // TEST NOVI BACKEND //
-    // useEffect(() => {
-    //     async function getInfo() {
-    //     try {
-    //         const infoResponse = await axios.get('https://api.datavortex.nl/recipebuddy/info', {
-    //             headers: {
-    //
-    //             }
-    //         });
-    //         console.log("response backend: ", infoResponse);
-    //     } catch (e) {
-    //         console.error(e);
-    //     }
-    // }
-    // getInfo();
-    // }, []);
-    //
-
+    const {isAuth} = useContext(AuthContext);
 
 
     //////////// get Data /////////////////////////
@@ -76,12 +59,19 @@ function Home() {
 
     return (
         <>
-            <Header />
-            <h3>Search recipes here</h3>
-            <SearchDashboard passUrl={setFullUrl}/>
-            {error && <p>{error}</p>}
-            {!error && isLoading && <p>Loading...</p>}
-            {foundRecipes?.length > 0 && <PresentedSearchResults results={foundRecipes} resetResults={setFoundRecipes} />}
+            <Header/>
+
+            {isAuth ? (
+                <>
+                    <h3>Search recipes here</h3>
+                    <SearchDashboard passUrl={setFullUrl}/>
+                    {error && <p>{error}</p>}
+                    {!error && isLoading && <p>Loading...</p>}
+                    {foundRecipes?.length > 0 &&
+                        <PresentedSearchResults results={foundRecipes} resetResults={setFoundRecipes}/>}
+                </>
+            ) : <h3>You need to login first.</h3>
+            }
         </>
     );
 }

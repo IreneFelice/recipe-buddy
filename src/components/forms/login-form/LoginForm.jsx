@@ -16,12 +16,6 @@ function LoginForm({errorMessage}) {
             const response = await axios.post('https://api.datavortex.nl/recipebuddy/users/authenticate', {
                     "username": inputData.username,
                     "password": inputData.password,
-                },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Api-Key': import.meta.env.VITE_RECIPEBUDDY_API_KEY
-                    }
                 }
             );
             console.log("This login response: ", response);

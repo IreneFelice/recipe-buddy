@@ -9,18 +9,13 @@ export const AuthContext = createContext({});
 function AuthContextProvider({children}) {
     const [auth, setAuth] = useState({
         isAuth: false,
-        user: null,
+        user: {},
+        // recipeBook: null,
         status: 'pending',
     });
 
     // PERSIST ON REFRESH //
     useEffect(() => {
-        // is er een token?
-        // zo ja, probeer te decoderen en check geldigheid.
-        //// gelukt en geldig? login()
-        //// lukt dat niet en/of niet geldig: logout()
-
-
         const validateToken = async () => {
             const token = localStorage.getItem('token');
 
@@ -30,13 +25,13 @@ function AuthContextProvider({children}) {
                     const decodedToken = jwtDecode(token);
                     console.log("decoded:", decodedToken);
                     if (isTokenValid(decodedToken)) {
-                        await login(token);  // login als token valid is
+                        await login(token);  // login if token is valid
                     } else { // token expired, delete token through logout
-                        console.log('token is verlopen en wordt verwijderd.. Opnieuw inloggen.');
+                        console.log('token expired');
                         logout();
                     }
                 } catch (error) { // decoderen gaat fout
-                    console.error("Fout bij het valideren van de token:", error);
+                    console.error("Token could not be validated:", error);
                     logout();
                 }
             } else {
@@ -52,10 +47,10 @@ function AuthContextProvider({children}) {
 
         localStorage.setItem('token', token);
         const decodedToken = jwtDecode(token);
-        const id = decodedToken.sub;
+        const username = decodedToken.sub;
         console.log("User is logged in! Token decoded.")
         try {
-            const response = await axios.get(`https://api.datavortex.nl/recipebuddy/users/${id}`, {
+            const response = await axios.get(`https://api.datavortex.nl/recipebuddy/users/${username}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
@@ -66,10 +61,11 @@ function AuthContextProvider({children}) {
                 user: {
                     name: response.data.username,
                     email: response.data.email,
-                    id: response.data.id,
+                    password: response.data.password,
                 },
                 status: 'done',
             });
+
         } catch (error) {
             console.log(error);
             logout();
@@ -80,7 +76,7 @@ function AuthContextProvider({children}) {
     function logout() {
         setAuth({
             isAuth: false,
-            user: null,
+            user: {},
             status: 'done',
         });
         localStorage.removeItem('token');
@@ -102,33 +98,3 @@ function AuthContextProvider({children}) {
 }
 
 export default AuthContextProvider;
-
-// export const AuthContext = createContext({});
-//
-// function AuthContextProvider({children}) {
-//     const [isAuth, toggleIsAuth] = useState(false);
-//
-//     function login(iswhat){
-//         toggleIsAuth(iswhat);
-//         console.log("user logged in!");
-//     }
-//
-//     function logout() {
-//         toggleIsAuth(false);
-//         console.log("user logged out");
-//     }
-//
-//     return (
-//       <AuthContext.Provider value={{
-//           login: login,
-//           logout: logout,
-//           isAuth: isAuth,
-//       }}>
-//           {children}
-//           </AuthContext.Provider>
-//     );
-// }
-//
-// export default AuthContextProvider;
-//
-//
