@@ -19,6 +19,7 @@ function createSearchQuery({ mealTypeParams, dietParams, difficulty, excludedFoo
         'field=source',
         'field=url',
         'field=ingredients',
+        'field=externalId',
     ];
     console.log("query: ", queryParams);
     return `${baseUrl}?${queryParams.join('&')}`;

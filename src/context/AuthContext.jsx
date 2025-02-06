@@ -1,7 +1,7 @@
-import {createContext, useEffect, useState} from "react";
-import axios from "axios";
-import {jwtDecode} from "jwt-decode";
-import isTokenValid from "../helpers/isTokenValid";
+import {createContext, useEffect, useState} from 'react';
+import axios from 'axios';
+import {jwtDecode} from 'jwt-decode';
+import isTokenValid from '../helpers/isTokenValid';
 
 export const AuthContext = createContext({});
 
@@ -10,9 +10,11 @@ function AuthContextProvider({children}) {
     const [auth, setAuth] = useState({
         isAuth: false,
         user: {},
-        // recipeBook: null,
         status: 'pending',
     });
+    const userName = auth.user.name;
+    const userUri = `https://api.datavortex.nl/recipebuddy/users/`;
+    const userRequest = userUri + userName;
 
     // PERSIST ON REFRESH //
     useEffect(() => {
@@ -30,7 +32,7 @@ function AuthContextProvider({children}) {
                         console.log('token expired');
                         logout();
                     }
-                } catch (error) { // decoderen gaat fout
+                } catch (error) {
                     console.error("Token could not be validated:", error);
                     logout();
                 }
@@ -88,6 +90,7 @@ function AuthContextProvider({children}) {
         auth: auth,
         login: login,
         logout: logout,
+        userRequest: userRequest,
     };
 
     return (

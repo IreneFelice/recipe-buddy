@@ -1,80 +1,88 @@
-import {Link} from 'react-router-dom';
 import {AuthContext} from '../../context/AuthContext.jsx';
+import PresentSingleRecipe from '../../components/present-single-recipe/PresentSingleRecipe.jsx';
+import './RecipeBook.css';
+import createQuerySingleRecipe from '../../helpers/createQuerySingleRecipe.js';
 import {useContext, useEffect, useState} from 'react';
 import axios from 'axios';
 
 function RecipeBook() {
-    const {isAuth, auth} = useContext(AuthContext);
-    const [testInfo, setTestInfo] = useState();
-    console.log("what we know about the user: ", auth.user);
+    const {auth, userRequest} = useContext(AuthContext);
+    const [savedRecipes, setSavedRecipes] = useState([]);
+    const [singleSelected, setSingleSelected] = useState({});
 
-    // put test info and present it with get request
-
-    const putTestInfo = async () => {
+    //set state savedRecipes with saved recipes from backend, at mounting stage
+    useEffect(() => {
         const token = localStorage.getItem('token');
 
         if (token) {
-
-            try {
-                const response = await axios.put(`https://api.datavortex.nl/recipebuddy/users/${auth.user.name}`,
-                    {
-                        "info": "first item, second item, third item",
-                    }, {
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`,
+            const getSavedRecipes = async () => {
+                try {
+                    const response = await axios.get(userRequest, {
+                            headers: {
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${token}`,
+                            }
                         }
+                    );
+                    if (response.data.info) {
+                        console.log("user-info: ", JSON.parse(response.data.info));
+                        setSavedRecipes(JSON.parse(response.data.info));
                     }
-                );
-                console.log("put test info succes:", response);
-
-            } catch (error) {
-                console.log("put test info failed")
-            }
-        } else {
-            console.log("no token found");
-        }
-    };
-
-    const getTestInfo = async () => {
-        const token = localStorage.getItem('token');
-        try {
-            const response = await axios.get(`https://api.datavortex.nl/recipebuddy/users/${auth.user.name}`,
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    }
+                } catch (error) {
+                    console.error("setting saved recipes failed", error);
                 }
-            )
-            console.log(response.data.info);
-            setTestInfo(response.data.info);
-        } catch (error) {
-            console.error(error);
+            }
+            void getSavedRecipes();
         }
-
-    };
-
-    useEffect(() => {
-        putTestInfo();
-        getTestInfo();
     }, []);
+
+    // set state singleSelected with clicked title from the list
+    function handleTitleClick(uri) {
+        const requestEndPoint = createQuerySingleRecipe(uri);
+
+        const retrieveSingleRecipe = async () => {
+            try {
+                const response = await axios.get(requestEndPoint);
+
+                if (response) {
+                    setSingleSelected(response);
+                }
+            } catch (error) {
+                console.error("retrieving single recipe failed", error);
+            }
+
+        };
+        void retrieveSingleRecipe();
+    }
+
 
     return (
         <>
-            {isAuth ? (
-                <>
-                    <h1>{auth.user.name}'s Recipe book</h1>
-                    <p>{testInfo}</p>
-                </>
-            ) : (
-                <>
-                    <p>In the recipe book you can find (links to) all the recipes found together with Buddy</p>
-                    <p>Please <Link to="/login">login</Link> to see your own recipe book</p>
-                </>
-            )}
+            {/*{!isAuth ? (*/}
+            <h1>{auth.user.name}'s Recipe book</h1>
+            <div className="book-outer-container">
+                <section>
+
+                    <ul>
+                        {savedRecipes.map((recipe) => (
+                            <li key={recipe.uri}>
+                                <button type="button" onClick={() => handleTitleClick(recipe.uri)}>
+                                    {recipe.title}
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </section>
+                <section>
+                    {singleSelected ?
+                        <PresentSingleRecipe
+                            singleSelected={singleSelected}
+                            setSingleSelected={setSingleSelected}/>
+                        : <p>No recipe here</p>}
+                </section>
+            </div>
         </>
-    )
+    );
 }
 
 export default RecipeBook;
