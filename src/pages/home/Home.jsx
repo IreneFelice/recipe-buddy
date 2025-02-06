@@ -1,11 +1,11 @@
-import {useContext, useEffect, useState} from "react";
-import axios from "axios";
-import testResponse from '../../constants/testResponse.json';
+import {useContext, useEffect, useState} from 'react';
+import axios from 'axios';
+// import testResponse from '../../constants/testResponse.json';
 import './Home.css';
-import Header from "../../components/header/Header.jsx";
-import SearchDashboard from "../../components/search-dashboard/SearchDashboard.jsx";
-import PresentedSearchResults from "../../components/present-search-results/PresentedSearchResults.jsx";
-import {AuthContext} from "../../context/AuthContext.jsx";
+import Header from '../../components/header/Header.jsx';
+import SearchDashboard from '../../components/search-dashboard/SearchDashboard.jsx';
+import PresentedSearchResults from '../../components/present-search-results/PresentedSearchResults.jsx';
+import {AuthContext} from '../../context/AuthContext.jsx';
 
 function Home() {
     const [error, setError] = useState('');
@@ -32,11 +32,12 @@ function Home() {
                 setError('');
                 setIsLoading(true);
 
-                // const response = await axios.get(fullUrl, { signal });
-                // const recipes = response.data.hits || [];
-                const recipes = testResponse.data.hits || [];
+                const response = await axios.get(fullUrl, { signal });
+                const recipes = response.data.hits || [];
+
 
                 setFoundRecipes(recipes.slice(0, 6));
+                console.log(response);
                 setFullUrl('');
                 clearTimeout(timeOutLoading);
                 setIsLoading(false);
@@ -61,17 +62,17 @@ function Home() {
         <>
             <Header/>
 
-            {isAuth ? (
-                <>
+            {/*{isAuth ? (*/}
+            {/*    */}
                     <h3>Search recipes here</h3>
                     <SearchDashboard passUrl={setFullUrl}/>
                     {error && <p>{error}</p>}
                     {!error && isLoading && <p>Loading...</p>}
                     {foundRecipes?.length > 0 &&
                         <PresentedSearchResults results={foundRecipes} resetResults={setFoundRecipes}/>}
-                </>
-            ) : <h3>You need to login first.</h3>
-            }
+            {/*    */}
+            {/*) : <h3>You need to login first.</h3>*/}
+            {/*}*/}
         </>
     );
 }
