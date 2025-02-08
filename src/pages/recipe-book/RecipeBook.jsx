@@ -25,7 +25,6 @@ function RecipeBook() {
                         }
                     );
                     if (response.data.info) {
-                        console.log("user-info: ", JSON.parse(response.data.info));
                         setSavedRecipes(JSON.parse(response.data.info));
                     }
                 } catch (error) {

@@ -11,7 +11,10 @@ function Home() {
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [fullUrl, setFullUrl] = useState('');
-    const [foundRecipes, setFoundRecipes] = useState([]);
+    const [foundRecipes, setFoundRecipes] = useState(() => {
+        const savedResults = sessionStorage.getItem('searchResults');
+        return savedResults ? JSON.parse(savedResults) : [];
+    });
     const {isAuth} = useContext(AuthContext);
 
 
@@ -35,9 +38,12 @@ function Home() {
                 const response = await axios.get(fullUrl, { signal });
                 const recipes = response.data.hits || [];
 
+                // pick only 6 results and save in sessionStorage:
+                const slicedRecipes = recipes.slice(0, 6);
+                setFoundRecipes(slicedRecipes);
+                sessionStorage.setItem('searchResults', JSON.stringify(slicedRecipes));
 
-                setFoundRecipes(recipes.slice(0, 6));
-                console.log(response);
+                console.log(slicedRecipes);
                 setFullUrl('');
                 clearTimeout(timeOutLoading);
                 setIsLoading(false);
@@ -50,7 +56,7 @@ function Home() {
             }
         };
 
-        getRecipes();
+        void getRecipes();
 
         return () => {
             controller.abort();
@@ -64,12 +70,12 @@ function Home() {
 
             {/*{isAuth ? (*/}
             {/*    */}
-                    <h3>Search recipes here</h3>
-                    <SearchDashboard passUrl={setFullUrl}/>
-                    {error && <p>{error}</p>}
-                    {!error && isLoading && <p>Loading...</p>}
-                    {foundRecipes?.length > 0 &&
-                        <PresentedSearchResults results={foundRecipes} resetResults={setFoundRecipes}/>}
+            <h3>Search recipes here</h3>
+            <SearchDashboard passUrl={setFullUrl}/>
+            {error && <p>{error}</p>}
+            {!error && isLoading && <p>Loading...</p>}
+            {foundRecipes?.length > 0 &&
+                <PresentedSearchResults results={foundRecipes} resetResults={setFoundRecipes}/>}
             {/*    */}
             {/*) : <h3>You need to login first.</h3>*/}
             {/*}*/}
