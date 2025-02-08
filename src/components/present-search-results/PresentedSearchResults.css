@@ -1,0 +1,26 @@
+.results-outer-container{
+    background-color: grey;
+    display: flex;
+    justify-content: space-between;
+}
+
+.results-container{
+    background-color: lightgrey;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.resultBlock{
+    background-color: darkseagreen;
+    border: solid 1px purple;
+    margin: 20px;
+}
+
+.manage-results-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: lightslategrey;
+    flex-basis: 30%;
+}
