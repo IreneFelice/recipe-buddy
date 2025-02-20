@@ -1,6 +1,6 @@
 // Checkbox: MealType select (breakfast, dinner, lunch)
 function MealType({ setValue, register }) {
-    const mealTypes = ["breakfast", "lunch", "dinner"];
+    const mealTypes = ['breakfast', 'lunch', 'dinner'];
 
     return (
         <div>
@@ -8,10 +8,10 @@ function MealType({ setValue, register }) {
                 <div key={meal}>
                     <label htmlFor={`mealType-${meal}`}>{meal}</label>
                     <input
-                        type="checkbox"
+                        type='checkbox'
                         id={`mealType-${meal}`}
                         value={meal}
-                        {...register("mealType")}
+                        {...register('mealType')}
                     />
                 </div>
             ))}

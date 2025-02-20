@@ -1,9 +1,9 @@
-import './PresentedSearchResults.css';
+import styles from './PresentedSearchResults.module.css';
 import {useContext, useState, useEffect} from 'react';
 import axios from 'axios';
 import {AuthContext} from '../../context/AuthContext.jsx';
 
-function PresentedSearchResults({results}) {
+function PresentedSearchResults({results, editResults}) {
     const [userInfoList, setUserInfoList] = useState([]);
     const [newRecipeList, setNewRecipeList] = useState([]);
     const [maxNumberSaved, toggleMaxNumberSaved] = useState(false);
@@ -20,7 +20,7 @@ function PresentedSearchResults({results}) {
                     console.log("user Info before get: ", userInfoList, "userRequest: ", userRequest);
                     const response = await axios.get(userRequest, {
                         headers: {
-                            "Content-Type": "application/json",
+                            'Content-Type': 'application/json',
                             Authorization: `Bearer ${token}`,
                         },
                     });
@@ -38,17 +38,13 @@ function PresentedSearchResults({results}) {
 
     //when user.info gets updated (mounting or after put-request)
     useEffect(() => {
-        if (savedRecipesNumber >= maxTotal) {
-            toggleMaxNumberSaved(true);
-        } else if (savedRecipesNumber < maxTotal) {
-            toggleMaxNumberSaved(false);
-        }
+        toggleMaxNumberSaved(savedRecipesNumber >= maxTotal);
         console.log("savedRecipes: ", savedRecipesNumber, "Max?", maxNumberSaved);
     }, [userInfoList]);
 
     //when user tries to save recipe
     //set state newRecipeList
-    function handleRecipeList(newRecipe) {
+    function handleSaveRecipe(newRecipe) {
         const combinedList = [...userInfoList, ...newRecipeList];
         const recipeExists = combinedList.some(recipe => recipe.uri === newRecipe.uri);
 
@@ -58,6 +54,10 @@ function PresentedSearchResults({results}) {
         }
         setNewRecipeList((prevRecipes) => [...prevRecipes, newRecipe]);
         console.log("newRecipes: ", newRecipeList);
+    }
+
+    function handleDeleteResult(recipeUri) {
+        editResults(results.filter(recipe => recipe.recipe.uri !== recipeUri));
     }
 
     //when newRecipeList state updates
@@ -71,13 +71,12 @@ function PresentedSearchResults({results}) {
                     console.log("Combined Recipelists: ", combinedRecipes);
                     //put-request new combined recipeList to user.info
                     try {
-
                         await axios.put(userRequest,
                             {
-                                "info": JSON.stringify(combinedRecipes),
+                                'info': JSON.stringify(combinedRecipes),
                             }, {
                                 headers: {
-                                    "Content-Type": "application/json",
+                                    'Content-Type': 'application/json',
                                     Authorization: `Bearer ${token}`,
                                 }
                             });
@@ -90,17 +89,16 @@ function PresentedSearchResults({results}) {
                     toggleMaxNumberSaved(true);
                     console.log("max exceded")
                 }
-            } // close if (token)
+            }
         }
-        //check if user.info exceeds maxTotal
         if (!maxNumberSaved && newRecipeList.length > 0) {
             void saveRecipes();
         }
     }, [newRecipeList]);
 
     return (
-        <div className="results-outer-container">
-            <section className="results-container">
+        <div className={styles['results-outer-container']}>
+            <section className={styles['results-container']}>
                 {maxNumberSaved &&
                     <p><strong>Your recipe book can not take more recipes. Delete one or more old ones
                         first.</strong></p>}
@@ -108,27 +106,30 @@ function PresentedSearchResults({results}) {
                     <div><h3>Results:</h3>
                         <ul>
                             {results.map((result) => (
-                                <li className="resultBlock" key={result.recipe.uri}>
+                                <li className={styles['result-block']} key={result.recipe.uri}>
                                     <h5>{result.recipe.label}</h5>
                                     <img
                                         src={result.recipe.image}
                                         alt={result.recipe.label}
-                                        style={{width: "100px", height: "100px"}}
+                                        className={styles['result-image']}
                                     />
                                     <p>
                                         <a
                                             href={result.recipe.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
+                                            target='_blank'
+                                            rel='noopener noreferrer'
                                         >
                                             View Recipe
                                         </a>
                                     </p>
-                                    <button type="button" onClick={() => handleRecipeList({
+                                    <button type='button' onClick={() => handleSaveRecipe({
                                         'title': result.recipe.label,
                                         'uri': result.recipe.uri
                                     })}>
                                         Save Recipe
+                                    </button>
+                                    <button type='button' onClick={() => handleDeleteResult(result.recipe.uri)}>
+                                        Delete
                                     </button>
                                 </li>
                             ))}
@@ -137,7 +138,7 @@ function PresentedSearchResults({results}) {
                 )}
             </section>
 
-            <section className="manage-results-container">
+            <section className={styles['manage-results-container']}>
                 <p>manage results section</p>
             </section>
 

@@ -1,7 +1,6 @@
 import {useContext, useEffect, useState} from 'react';
 import axios from 'axios';
-// import testResponse from '../../constants/testResponse.json';
-import './Home.css';
+import styles from './Home.module.css';
 import Header from '../../components/header/Header.jsx';
 import SearchDashboard from '../../components/search-dashboard/SearchDashboard.jsx';
 import PresentedSearchResults from '../../components/present-search-results/PresentedSearchResults.jsx';
@@ -17,6 +16,7 @@ function Home() {
     });
     const {isAuth} = useContext(AuthContext);
 
+    console.log("Recipes found in sessionStorage: ", sessionStorage.getItem('searchResults'));
 
     //////////// get Data /////////////////////////
     useEffect(() => {
@@ -42,8 +42,6 @@ function Home() {
                 const slicedRecipes = recipes.slice(0, 6);
                 setFoundRecipes(slicedRecipes);
                 sessionStorage.setItem('searchResults', JSON.stringify(slicedRecipes));
-
-                console.log(slicedRecipes);
                 setFullUrl('');
                 clearTimeout(timeOutLoading);
                 setIsLoading(false);
@@ -75,7 +73,7 @@ function Home() {
             {error && <p>{error}</p>}
             {!error && isLoading && <p>Loading...</p>}
             {foundRecipes?.length > 0 &&
-                <PresentedSearchResults results={foundRecipes} resetResults={setFoundRecipes}/>}
+                <PresentedSearchResults results={foundRecipes} editResults={setFoundRecipes}/>}
             {/*    */}
             {/*) : <h3>You need to login first.</h3>*/}
             {/*}*/}

@@ -11,22 +11,13 @@
     flex-direction: column;
 }
 
-input {
+.form-input {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
-/*button {*/
-/*    padding: 10px;*/
-/*    background-color: #007bff;*/
-/*    color: white;*/
-/*    border: none;*/
-/*    cursor: pointer;*/
-/*    border-radius: 4px;*/
-/*}*/
-
-button:hover {
+.form-button:hover {
     background-color: #0056b3;
 }
 

@@ -1,6 +1,6 @@
 import {AuthContext} from '../../context/AuthContext.jsx';
 import PresentSingleRecipe from '../../components/present-single-recipe/PresentSingleRecipe.jsx';
-import './RecipeBook.css';
+import styles from './RecipeBook.module.css';
 import createQuerySingleRecipe from '../../helpers/createQuerySingleRecipe.js';
 import {useContext, useEffect, useState} from 'react';
 import axios from 'axios';
@@ -19,7 +19,7 @@ function RecipeBook() {
                 try {
                     const response = await axios.get(userRequest, {
                             headers: {
-                                "Content-Type": "application/json",
+                                'Content-Type': 'application/json',
                                 Authorization: `Bearer ${token}`,
                             }
                         }
@@ -54,31 +54,38 @@ function RecipeBook() {
         void retrieveSingleRecipe();
     }
 
+    useEffect(() => {
+        console.log(savedRecipes);
+    }, [savedRecipes])
 
     return (
         <>
             {/*{!isAuth ? (*/}
             <h1>{auth.user.name}'s Recipe book</h1>
-            <div className="book-outer-container">
-                <section>
-
-                    <ul>
-                        {savedRecipes.map((recipe) => (
-                            <li key={recipe.uri}>
-                                <button type="button" onClick={() => handleTitleClick(recipe.uri)}>
-                                    {recipe.title}
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
-                </section>
-                <section>
-                    {singleSelected ?
-                        <PresentSingleRecipe
-                            singleSelected={singleSelected}
-                            setSingleSelected={setSingleSelected}/>
-                        : <p>No recipe here</p>}
-                </section>
+            <div className={styles['book-outer-container']}>
+                <div className={styles['book-inner-container']}>
+                    <section className={styles['book-left-page']}>
+                        <ul>
+                            {savedRecipes.map((recipe) => (
+                                <li key={recipe.uri}>
+                                    <button type='button' onClick={() => handleTitleClick(recipe.uri)}>
+                                        {recipe.title}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
+                    <section className={styles['book-right-page']}>
+                        {singleSelected ?
+                            <PresentSingleRecipe
+                                singleRecipe={singleSelected}
+                                editSingleRecipe={setSingleSelected}
+                                editBookList={setSavedRecipes}
+                                bookList={savedRecipes}
+                            />
+                            : <p>No recipe here</p>}
+                    </section>
+                </div>
             </div>
         </>
     );

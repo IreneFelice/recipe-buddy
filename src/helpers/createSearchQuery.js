@@ -1,5 +1,5 @@
 
-function createSearchQuery({ mealTypeParams, dietParams, difficulty, excludedFood }) {
+function createSearchQuery({ mealTypeParams, dietParams, difficulty, excludedFood, healthy }) {
     const baseUrl = 'https://api.edamam.com/api/recipes/v2';
     console.log("mealType:", mealTypeParams);
     const queryParams = [

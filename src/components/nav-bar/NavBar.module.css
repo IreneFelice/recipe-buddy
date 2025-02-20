@@ -10,7 +10,7 @@
 }
 
 /*not including test-object*/
-.inner-nav-container{
+.inner-nav-container {
     display: flex;
     width: 100%;
 }
@@ -22,7 +22,6 @@
     align-items: center;
     list-style-type: none;
 }
-
 
 
 .left {
@@ -42,15 +41,16 @@
     color: lightgrey;
 }
 
-.active{
+.active {
     background-color: mediumpurple;
 }
 
-.default{
+.default {
     background-color: rebeccapurple;
+
 }
 
-.test-object{
+.test-object {
     position: absolute;
     top: 1rem;
     background-color: saddlebrown;
@@ -58,17 +58,12 @@
     padding: 25px;
 }
 
-button{
-    padding: 0;
-    border-radius: 0;
-    margin: 0;
-}
-
-.logout-button{
+.logout-button {
     padding: 10px 24px;
     border-radius: 20px;
     margin: 30px;
     color: lightgrey;
     background-color: rebeccapurple;
+    border-color: transparent;
 }
 

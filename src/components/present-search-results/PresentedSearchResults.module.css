@@ -2,16 +2,19 @@
     background-color: grey;
     display: flex;
     justify-content: space-between;
+    border: dashed 2px cornflowerblue;
 }
 
 .results-container{
     background-color: lightgrey;
     display: flex;
-    flex-direction: column;
+    flex-basis: 50vw;
+    flex-flow: row wrap;
     align-items: center;
+    border: solid 2px orangered;
 }
 
-.resultBlock{
+.result-block{
     background-color: darkseagreen;
     border: solid 1px purple;
     margin: 20px;
@@ -22,5 +25,11 @@
     flex-direction: column;
     align-items: center;
     background-color: lightslategrey;
-    flex-basis: 30%;
+    border: solid 5px greenyellow;
+
+}
+
+.result-image{
+    width: 100px;
+    height: 100px;
 }
