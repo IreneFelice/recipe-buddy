@@ -1,13 +1,19 @@
+import styles from '../../pages/recipe-book/RecipeBook.module.css';
 
 
-function PresentSingleRecipe({singleRecipe, editSingleRecipe, bookList, editBookList}) {
+function PresentSingleRecipe({singleRecipe, closeRecipe, bookList, editBookList}) {
 
     function handleDeleteSingleRecipe (recipeUri) {
         editBookList(bookList.filter(recipe => recipe.uri !== recipeUri));
      }
+
+    function handleCloseRecipe () {
+        closeRecipe(null);
+    }
+
+
     return (
         <div>
-            <p>Recipe</p>
             {singleRecipe.data?.hits.length > 0 && (
                 <>
                     <h5>{singleRecipe.data.hits[0].recipe.label}</h5>
@@ -22,10 +28,10 @@ function PresentSingleRecipe({singleRecipe, editSingleRecipe, bookList, editBook
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            View Recipe
+                            Visit Recipe website
                         </a>
                     </p>
-                    <button type="button" onClick={() => editSingleRecipe({})}>
+                    <button className={styles['close-btn']} onClick={handleCloseRecipe}>
                         Close
                     </button>
                     <button type="button" onClick={() => handleDeleteSingleRecipe({})}>

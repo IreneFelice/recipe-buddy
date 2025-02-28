@@ -1,69 +1,112 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-}
+@import url('https://fonts.googleapis.com/css2?family=Just+Me+Again+Down+Here&family=Love+Ya+Like+A+Sister&family=Quicksand&family=The+Girl+Next+Door&family=Unkempt:wght@400;700&display=swap');
 
-  *{
+
+/* ------------------------------- 1. Global Styles -------------------------------- */
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
+}
 
 ul, ol {
-  list-style: none;
+    list-style: none;
 }
 
 li {
-  margin-bottom: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
+button {
+    border: none;
+}
+
+
+img {
+    width: 100%;
+    height: 100%;
+}
 
 body {
-  font-family: Merriweather, Roboto, "Times New Roman", serif;
-  display: flex;
-  flex-direction: column;
-  height: 100;
-  min-height: 100vh;
+    /*background: linear-gradient(180deg, #FDCE0D 30%, #FCBB15 54%, #FCBA15 72.5%, #FBAA1B 100%);*/
+    background: linear-gradient(180deg, var(--yellow-light) 30%, var(--yellow-mid) 54%, var(--yellow-dark) 100%);
+    font-family: Inter, system-ui, Arial, sans-serif;;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 100vh;
 }
 
-/*h1 {*/
-/*  font-size: 3.2em;*/
-/*  line-height: 1.1;*/
-/*}*/
+/* ------------------------------- 2. Typography ----------------------------------- */
+:root {
+    font-family: Inter, system-ui, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
 
-/*button {*/
-/*  border-radius: 8px;*/
-/*  border: 1px solid transparent;*/
-/*  padding: 0.6em 1.2em;*/
-/*  font-size: 1em;*/
-/*  font-weight: 500;*/
-/*  font-family: inherit;*/
-/*  background-color: #1a1a1a;*/
-/*  cursor: pointer;*/
-/*  transition: border-color 0.25s;*/
-/*}*/
-/*button:hover {*/
-/*  border-color: #646cff;*/
-/*}*/
-/*button:focus,*/
-/*button:focus-visible {*/
-/*  outline: 4px auto -webkit-focus-ring-color;*/
-/*}*/
+    /*Custom Fonts*/
+    --special-title: 'Love Ya Like A Sister';
+    --book-list-text: 'The Girl Next Door';
+    --button-text: 'Unkempt';
+    --buddy-quote: 'Just Me Again Down Here';
+    --buddy-quote-small: 'Quicksand';
 
-/*@media (prefers-color-scheme: light) {*/
-/*  :root {*/
-/*    color: #213547;*/
-/*    background-color: #ffffff;*/
-/*  }*/
-/*  a:hover {*/
-/*    color: #747bff;*/
-/*  }*/
-/*  button {*/
-/*    background-color: #f9f9f9;*/
-/*  }*/
+    /*Background colors*/
+  --yellow-light: #FDCE0D;
+  --yellow-mid: #FCBB15;
+  --yellow-dark: #FBAA1B;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Merriweather, serif;
+}
+
+h1, h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    padding: 16px 0;
+}
+
+h3 {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+h4, h5, h6 {
+    font-size: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+p {
+    margin: 12px 0;
+    font-size: 1rem;
+}
+
+/* ------------------------------- 3. Layout --------------------------------------- */
+
+/* --------------- 3.1 Reusables ----------------------- */
+
+.outer-app-container {
+    width: 100%;
+    display: flex;
+    min-width: 100vw;
+    min-height: 100vh;
+    max-width: 100vw;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+.inner-page-container {
+    width: 85vw;
+    min-height: 100vh;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* --------------- 3.2 Other --------------------------- */
+
 

@@ -18,6 +18,18 @@ function LoginPage() {
         toggleShowLogin(false);
     }
 
+    function resetLoginPage () {
+        if (!newName && !isAuth){
+            toggleShowRegister(false);
+            toggleShowLogin(true);
+            toggleNewHere(true);
+        }
+    }
+
+    useEffect(()=>{
+        resetLoginPage();
+    },[]);
+
     useEffect(() => {
         if (newName && !isAuth) {
             toggleShowRegister(false);
@@ -38,11 +50,10 @@ function LoginPage() {
     },[isAuth]);
 
 
-
     return (
-            <div className={styles['login-outer-container']}>
+            <div className='inner-page-container'>
 
-                <div className={styles['login-containe']}>
+                <div className={styles['login-container']}>
                     {error && <p className={styles.error}>{error}</p>}
                     {isAuth && <p>You are logged in. Meet Buddy in the kitchen!</p>}
                     {newName && <p>Thank you {newName}! You can now login:</p>}
@@ -56,7 +67,10 @@ function LoginPage() {
                     </span>
                 }
                 <div className={styles['register-container']}>
-                    {showRegister && <FormRegister errorMessage={setError} newName={setNewName}/>}
+                    {showRegister && (<>
+                        <button type='button' onClick={resetLoginPage}>Back to Login</button>
+                        <FormRegister errorMessage={setError} newName={setNewName}/>
+                    </>)}
                 </div>
 
             </div>

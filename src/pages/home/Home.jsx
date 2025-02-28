@@ -1,10 +1,11 @@
 import {useContext, useEffect, useState} from 'react';
 import axios from 'axios';
-import styles from './Home.module.css';
+import {AuthContext} from '../../context/AuthContext.jsx';
+// import {WindowSizeContext} from '../../context/WindowSizeContext.jsx';
 import Header from '../../components/header/Header.jsx';
+import BuddyWelcoming from '../../components/buddy-welcoming/BuddyWelcoming.jsx';
 import SearchDashboard from '../../components/search-dashboard/SearchDashboard.jsx';
 import PresentedSearchResults from '../../components/present-search-results/PresentedSearchResults.jsx';
-import {AuthContext} from '../../context/AuthContext.jsx';
 
 function Home() {
     const [error, setError] = useState('');
@@ -15,10 +16,10 @@ function Home() {
         return savedResults ? JSON.parse(savedResults) : [];
     });
     const {isAuth} = useContext(AuthContext);
-
+    // const {isMobile} = useContext(WindowSizeContext);
     console.log("Recipes found in sessionStorage: ", sessionStorage.getItem('searchResults'));
 
-    //////////// get Data /////////////////////////
+    //////////// get New Recipe Data /////////////////////////
     useEffect(() => {
         if (!fullUrl) return;
         const controller = new AbortController();
@@ -35,7 +36,7 @@ function Home() {
                 setError('');
                 setIsLoading(true);
 
-                const response = await axios.get(fullUrl, { signal });
+                const response = await axios.get(fullUrl, {signal});
                 const recipes = response.data.hits || [];
 
                 // pick only 6 results and save in sessionStorage:
@@ -63,21 +64,21 @@ function Home() {
     }, [fullUrl]);
 
     return (
-        <>
+        <div className='inner-page-container'>
             <Header/>
-
-            {/*{isAuth ? (*/}
-            {/*    */}
-            <h3>Search recipes here</h3>
-            <SearchDashboard passUrl={setFullUrl}/>
-            {error && <p>{error}</p>}
-            {!error && isLoading && <p>Loading...</p>}
-            {foundRecipes?.length > 0 &&
-                <PresentedSearchResults results={foundRecipes} editResults={setFoundRecipes}/>}
-            {/*    */}
-            {/*) : <h3>You need to login first.</h3>*/}
-            {/*}*/}
-        </>
+            <BuddyWelcoming/>
+            {isAuth ? (
+                <>
+                    <h3>Search recipes here</h3>
+                    <SearchDashboard passUrl={setFullUrl}/>
+                    {error && <p>{error}</p>}
+                    {!error && isLoading && <p>Loading...</p>}
+                    {foundRecipes?.length > 0 &&
+                        <PresentedSearchResults results={foundRecipes} editResults={setFoundRecipes}/>}
+                </>
+            ) : <h3>You need to login first.</h3>
+            }
+        </div>
     );
 }
 

@@ -1,34 +1,57 @@
-.book-outer-container{
-    min-height: 100vh;
+
+.book-outer-container {
+    min-width: 100%;
+    height: auto;
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 2rem;
-    background-image: url('../../assets/old-book-open.png');
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
+    align-items: flex-start;
+    position: relative;
 }
 
-
 .book-inner-container {
+    position: absolute;
+    top: 0;
+    left: 0;
     display: flex;
-    width: 80%;
-    max-width: 1000px;
-    aspect-ratio: 10 / 7;
+    width: 100%;
 }
 
 .book-left-page, .book-right-page {
-    flex: 1;
-    padding: 2rem;
-    display: flex;
-    align-items: flex-start;
+    padding: 7%;
+    width: 90%;
+    margin: 0 auto;
 }
 
-.book-left-page {
-    justify-content: flex-start;
+.close-btn {
+    background-color: #e63946;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-bottom: 1rem;
 }
 
-.book-right-page {
-    justify-content: flex-start;
+/* Mobile */
+@media (max-width: 768px) {
+    /*.recipe-list-mobile ul {*/
+    /*    width: 100%;*/
+    /*    padding: 0;*/
+    /*}*/
+
+    .recipe-list-mobile button {
+        width: 100%;
+        padding: 0.5rem;
+        font-size: 1.1rem;
+        border: none;
+        cursor: pointer;
+    }
+
+    .single-recipe-mobile {
+        padding: 7%;
+        width: 90%;
+        margin: 0 auto;
+    }
+
+
 }
