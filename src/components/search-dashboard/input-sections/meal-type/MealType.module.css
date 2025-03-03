@@ -1,0 +1,16 @@
+.mealtype-checkbox {
+    display: flex;
+    min-width: 100%;
+    min-height: 5vw;
+    justify-content: space-around;
+    align-items: baseline;
+    padding-top: 1vw;
+    padding-right: 1vw;
+    font-family: var(--button-text);
+}
+
+.meal-input {
+    min-width: 3vw;
+    transform: scale(2);
+}
+

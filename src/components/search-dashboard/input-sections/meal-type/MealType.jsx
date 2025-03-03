@@ -1,18 +1,21 @@
+import styles from './MealType.module.css';
+
 // Checkbox: MealType select (breakfast, dinner, lunch)
 function MealType({ setValue, register }) {
     const mealTypes = ['breakfast', 'lunch', 'dinner'];
 
     return (
-        <div>
+        <div className={styles['mealtype-checkbox']}>
             {mealTypes.map((meal) => (
                 <div key={meal}>
-                    <label htmlFor={`mealType-${meal}`}>{meal}</label>
                     <input
                         type='checkbox'
                         id={`mealType-${meal}`}
                         value={meal}
+                        className={styles['meal-input']}
                         {...register('mealType')}
                     />
+                    <label htmlFor={`mealType-${meal}`}>{meal}</label>
                 </div>
             ))}
         </div>

@@ -38,16 +38,11 @@
     /*top: calc((10vh*3) + 10vw);*/
     margin-top: calc(22vw + (20vh / 4));
     max-width: 90vw;
-    max-height: 100vh;
+    /*max-height: 100vh;*/
 }
 
 /* Mobile */
 @media (max-width: 768px) {
-    /*.recipe-list-mobile ul {*/
-    /*    width: 100%;*/
-    /*    padding: 0;*/
-    /*}*/
-
     .recipe-list-mobile button {
         width: 100%;
         padding: 0.5rem;
@@ -66,9 +61,8 @@
         display: flex;
         justify-content: center;
         margin-top: 20vw;
-        max-width: 85vw;
+        min-width: 85vw;
         max-height: 100vh;
-        min-height: 100vh;
     }
 
 

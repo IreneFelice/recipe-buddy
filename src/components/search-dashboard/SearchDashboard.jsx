@@ -8,6 +8,7 @@ import createSearchQuery from "../../helpers/createSearchQuery.js";
 import HealthSlider from './input-sections/health-slider/HealthSlider.jsx';
 // import dashboardBorder from '../../assets/dashboard-border.png';
 import dashboardBackground from '../../assets/dashboard-background.png';
+import CustomButton from '../button/CustomButton.jsx';
 
 function SearchDashboard({passUrl}) {
     const {register, handleSubmit, setValue} = useForm({
@@ -47,15 +48,35 @@ function SearchDashboard({passUrl}) {
                             <section className={styles['first-section']}>
                                 <MealType register={register}/>
                             </section>
-                            <section className={styles['second-section']}>
-                                <MultiselectDiet register={register}/>
-                            </section>
-                            <section className={styles['third-section']}>
-                                <DifficultySlider setValue={setValue}/>
-                                <HealthSlider setValue={setValue}/>
-                            </section>
+                            <div className={styles['dashboard-inner-container-1']}>
+                                <div className={styles['dashboard-inner-container-2']}>
+                                    <div className={styles['dashboard-inner-container-3']}>
+                                        <section className={styles['second-section']}>
+                                            {/*< ingredient picker />*/}
+                                            <p>Test Object 1</p>
+                                        </section>
+                                        <div className={styles['dashboard-inner-container-4']}>
+                                        <section className={styles['third-section']}>
+                                            <MultiselectDiet register={register}/>
+                                        </section>
+                                        <section className={styles['fourth-section']}>
+                                            {/*< special diet />*/}
+                                            <p>Test Object 2</p>
+                                        </section>
+                                    </div>
+                                    </div>
+                                    <section className={styles['fifth-section']}>
+                                        <DifficultySlider setValue={setValue}/>
+                                    </section>
+                                </div>
+                                <section className={styles['sixth-section']}>
+                                    <HealthSlider setValue={setValue}/>
+                                </section>
+                            </div>
+
                             <div className={styles['button-container']}>
-                                <button type='submit'>{searchedResults ? "Search again" : "Search recipes!"}</button>
+                                <CustomButton color='mint' type='submit' text={searchedResults ? "Search again" : "Search recipes!"}/>
+                                {/*<button type='submit'>{searchedResults ? "Search again" : "Search recipes!"}</button>*/}
                             </div>
                         </form>
                     </div>
