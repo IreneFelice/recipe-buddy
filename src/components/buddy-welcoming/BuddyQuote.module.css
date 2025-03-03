@@ -1,0 +1,15 @@
+.buddy-quote-outer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buddy-quote-text {
+    padding-top: 2vw;
+    text-align: center;
+}
+
+.button-container {
+    padding-top: 0.5vw;
+    padding-bottom: 1.5vw;
+}

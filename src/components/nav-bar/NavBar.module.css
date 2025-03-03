@@ -9,16 +9,17 @@
 
 .inner-nav-container {
     display: flex;
-    width: 85vw;
+    width: 95vw;
 }
 
 /**** Mobile ****/
 .nav-list-container {
     display: flex;
-    height: 45px;
+    flex-grow: 1;
+    height: 15vw;
     width: 100%;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: space-evenly;
     list-style-type: none;
 }
 
@@ -30,6 +31,7 @@
 
 }
 
+/*buttons*/
 .active, .default {
     all: unset;
     font-family: var(--button-text);
@@ -39,7 +41,7 @@
     align-items: center;
     justify-content: center;
     padding: 10px 20px;
-    font-size: 1rem;
+    font-size: 2.5vw;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
@@ -74,7 +76,7 @@
     align-items: center;
     justify-content: center;
     padding: 10px 20px;
-    font-size: 16px;
+    /*font-size: 0.2vw;*/
     cursor: pointer;
     text-align: center;
     text-decoration: none;
@@ -94,7 +96,11 @@
 
 /**********************************************************************************************************************/
 
-@media (min-width: 768px) {
+@media (min-width: 769px) {
+    .inner-nav-container {
+        width: 85vw;
+    }
+
     .nav-list-container {
         display: flex;
         gap: 2vw;
@@ -117,6 +123,7 @@
         padding: 0.8rem 2rem;
         font-size: clamp(1rem, 2vw, 1.6rem);
         border-radius: 35px;
+        border: transparent;
     }
 
     .logout-button {

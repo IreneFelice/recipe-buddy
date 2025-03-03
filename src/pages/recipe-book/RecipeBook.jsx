@@ -7,6 +7,7 @@ import PresentSingleRecipe from '../../components/present-single-recipe/PresentS
 import PresentRecipeList from '../../components/present-recipe-list/PresentRecipeList.jsx';
 import bookOpen from '../../assets/old-book-open.png';
 import emptyPage from '../../assets/empty-paper.png';
+import BuddyWelcoming from '../../components/buddy-welcoming/BuddyWelcoming.jsx';
 
 function RecipeBook() {
     const {auth, isAuth, userRequest} = useContext(AuthContext);
@@ -126,7 +127,9 @@ function RecipeBook() {
                     </div>
                 </>
             ) : (
-                <p>Log in to get your own recipe book!</p>
+                <div className={styles['buddy-welcoming-container']}>
+                <BuddyWelcoming/>
+                </div>
             )}
         </div>
     );

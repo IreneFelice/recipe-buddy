@@ -1,103 +1,95 @@
 
-        .buddy-speaking-container {
-            display: flex;
-            position: relative;
-            justify-content: flex-end;
-        }
-
-        .text-balloon-wrapper {
-            display: flex;
-            max-width: 90vw;
-            position: relative;
-            left: 5vw;
-            top: -6vh;
-        }
-
-        .balloon-context {
-            position: absolute;
-            padding-top: 10%;
-            height: 100%;
-            width: 100%;
-            left: -4.5vw;
-            font-family: var(--buddy-quote-small);
-        }
-
-        .balloon-context p {
-            font-size: 90%;
-            /*background-color: lightblue;*/
-        }
-
-        .buddy-img-container {
-            width: calc(20vw + 5vh);
-            position: absolute;
-            top: -20vh;
-            left: -5vw;
-            z-index: 1;
-        }
-
-        @media (min-width: 576px) {
-            .balloon-context p {
-                background-color: blue;
-            }
-
-        }
-
-        @media (min-width: 768px) {
-            .balloon-context p {
-                background-color: purple;
-            }
-
-        }
-
-        @media (min-width: 992px) {
-            .balloon-context p {
-               background-color: #388E3C;
-            }
-        }
-
-        @media (min-width: 1200px) {
-            .balloon-context p {
-                background-color:beige;
-            }
-        }
+.buddy-speaking-container {
+    display: flex;
+    position: relative;
+    justify-content: flex-end;
+    top: calc(-10vw - 2vh);
+    left: 4vw;
+    width: 90%;
+    max-height: 90vh;
+    border: solid 3px cornflowerblue;
+}
 
 
+.text-balloon-inner-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 95%;
+    min-height: 100%;
+    z-index: 1;
+}
 
-        @media (min-width: 1600px) {
+.balloon-context {
+    position: absolute;
+    top: 0;
+    margin-top: 0.5vw;
+    padding-top: 2vw;
+    height: 80%;
+    max-width: 80%;
+    font-family: var(--buddy-quote-small);
+}
 
-            .buddy-speaking-container {
-                display: flex;
-                position: relative;
-                justify-content: center;
-            }
+.balloon-context p {
+    font-size: 2vw;
+    line-height: 1.2vw;
+}
 
-            .text-balloon-wrapper {
-                display: flex;
-                max-width: 50%;
-                position: relative;
-                left: 10vw;
-                top: -4vh;
-            }
+.buddy-img-container {
+    max-width: 24vw;
+    position: absolute;
+    top: -14vw;
+    left: -10vw;
+    z-index: 2;
+}
 
-            .balloon-context {
-                position: absolute;
-                padding-top: 9%;
-                left: 0;
-                height: 100%;
-                width: 100%;
-                font-family: var(--buddy-quote);
-            }
 
-            .balloon-context p {
-                font-size: clamp(1rem, 1.5vw, 4rem);
-                background-color: transparent;
-            }
+@media (min-width: 576px) {
 
-            .buddy-img-container {
-                width: calc(20vw + 5vh);
-                position: absolute;
-                left: 5vw;
-            }
+    /*.buddy-speaking-container {*/
+    /*}*/
 
-        }
+    /*.text-balloon-inner-wrapper {*/
+    /*}*/
 
+    .balloon-context {
+        top: 0;
+        margin-top: 0.5vw;
+        padding-top: 3vw;
+        height: 80%;
+        max-width: 80%;
+    }
+
+    .balloon-context p {
+        line-height: 2.2vw;
+    }
+
+    /*.buddy-img-container {*/
+    /*}*/
+}
+
+@media (min-width: 992px){
+    /*.buddy-speaking-container {*/
+    /*}*/
+
+    /*.text-balloon-inner-wrapper {*/
+    /*    background-color: lightcoral;*/
+    /*    border: solid 5px orangered;*/
+    /*}*/
+
+    .balloon-context {
+        top: 0;
+        margin-top: 1vw;
+        max-width: 85%;
+        font-family: var(--buddy-quote);
+    }
+
+    .balloon-context p {
+        font-size: 3.2vw;
+        line-height: 3vw;
+    }
+
+    /*.buddy-img-container {*/
+    /*}*/
+
+}

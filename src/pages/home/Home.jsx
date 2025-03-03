@@ -1,9 +1,7 @@
 import {useContext, useEffect, useState} from 'react';
 import axios from 'axios';
 import {AuthContext} from '../../context/AuthContext.jsx';
-// import {WindowSizeContext} from '../../context/WindowSizeContext.jsx';
 import Header from '../../components/header/Header.jsx';
-import BuddyWelcoming from '../../components/buddy-welcoming/BuddyWelcoming.jsx';
 import SearchDashboard from '../../components/search-dashboard/SearchDashboard.jsx';
 import PresentedSearchResults from '../../components/present-search-results/PresentedSearchResults.jsx';
 
@@ -16,7 +14,6 @@ function Home() {
         return savedResults ? JSON.parse(savedResults) : [];
     });
     const {isAuth} = useContext(AuthContext);
-    // const {isMobile} = useContext(WindowSizeContext);
     console.log("Recipes found in sessionStorage: ", sessionStorage.getItem('searchResults'));
 
     //////////// get New Recipe Data /////////////////////////
@@ -66,10 +63,8 @@ function Home() {
     return (
         <div className='inner-page-container'>
             <Header/>
-            <BuddyWelcoming/>
             {isAuth ? (
                 <>
-                    <h3>Search recipes here</h3>
                     <SearchDashboard passUrl={setFullUrl}/>
                     {error && <p>{error}</p>}
                     {!error && isLoading && <p>Loading...</p>}

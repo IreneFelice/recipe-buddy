@@ -1,7 +1,7 @@
 
 .book-outer-container {
     min-width: 100%;
-    height: auto;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -32,6 +32,15 @@
     margin-bottom: 1rem;
 }
 
+.buddy-welcoming-container {
+    display: flex;
+    justify-content: center;
+    /*top: calc((10vh*3) + 10vw);*/
+    margin-top: calc(22vw + (20vh / 4));
+    max-width: 90vw;
+    max-height: 100vh;
+}
+
 /* Mobile */
 @media (max-width: 768px) {
     /*.recipe-list-mobile ul {*/
@@ -51,6 +60,15 @@
         padding: 7%;
         width: 90%;
         margin: 0 auto;
+    }
+
+    .buddy-welcoming-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20vw;
+        max-width: 85vw;
+        max-height: 100vh;
+        min-height: 100vh;
     }
 
 
