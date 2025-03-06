@@ -7,9 +7,15 @@
 .buddy-quote-text {
     padding-top: 2vw;
     text-align: center;
+    margin: 0.8vw 0;
 }
 
 .button-container {
     padding-top: 0.5vw;
     padding-bottom: 1.5vw;
+}
+
+.buddy-quote-text p {
+    line-height: 4vw;
+
 }

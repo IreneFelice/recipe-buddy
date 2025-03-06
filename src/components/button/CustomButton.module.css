@@ -54,10 +54,34 @@
     color: white;
 }
 
+/* Red button */
+.red {
+    background: linear-gradient(90deg, #9E2A2F 0%, #BF5A4A 100%);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25), inset 0 4px 8px #FFD8D8;
+}
+
+.red:hover {
+    background: linear-gradient(90deg, #B94F4A 0%, #D26B5F 100%);
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4), inset 0 4px 12px #FFF;
+    color: white;
+}
+
+/* Yellow button */
+.yellow {
+    background: linear-gradient(90deg, #FFB81C 0%, #F1A800 100%);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25), inset 0 4px 8px #FFEC99;
+}
+
+.yellow:hover {
+    background: linear-gradient(90deg, #FFCD47 0%, #F3C53D 100%);
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4), inset 0 4px 12px #FFF;
+    color: white;
+}
+
 @media (min-width: 1000px) {
 .button{
-    font-size: 1.5rem;
-    padding: 1vw 2vw;
+    font-size: 1.5vw;
+    padding: 1vw 1.5vw;
     border-radius: 35px;
 }
 }

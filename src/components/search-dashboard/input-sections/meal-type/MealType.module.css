@@ -2,10 +2,8 @@
     display: flex;
     min-width: 100%;
     min-height: 5vw;
-    justify-content: space-around;
-    align-items: baseline;
+    justify-content: space-evenly;
     padding-top: 1vw;
-    padding-right: 1vw;
     font-family: var(--button-text);
 }
 

@@ -68,30 +68,32 @@
 
 .logout-button {
     all: unset;
-    font-family: var(--button-text);
-    font-weight: bold;
-    border-radius: 20px;
-    color: lightgrey;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 20px;
-    /*font-size: 0.2vw;*/
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
 
+    font-family: var(--button-text);
+    font-size: 2.5vw;
+    font-weight: bold;
+    color: lightgrey;
+    text-align: center;
+
+    padding: 10px 20px;
+    border-radius: 20px;
     background: linear-gradient(90deg, #474485 0%, #551C71 100%);
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25),
     inset 0 4px 8px #FDF8FF;
+
+    cursor: pointer;
 }
 
 .logout-button:hover {
+    color: white;
     background: linear-gradient(90deg, #5A4EB8 0%, #6D2A95 100%);
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.6),
     0 0 20px rgba(255, 255, 255, 0.4),
     inset 0 4px 12px #FFF;
-    color: white;
+
 }
 
 /**********************************************************************************************************************/

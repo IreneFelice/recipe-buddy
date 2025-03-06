@@ -1,12 +1,14 @@
+
 .dashboard-outer-container{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /*border: solid 3px yellow;*/
-    min-width: 65vw;
-    top: -100px;
+    min-width: 80vw;
+    max-width: 600px;
+    top: -5vw;
     position: relative;
+    border: solid 5px yellow;
 }
 
 .dashboard-outer-container h2 {
@@ -20,30 +22,28 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-grow: 1;
-    min-width: 100%;
-    min-height: 100%;
     position: absolute;
     top: 0;
-    /*border: dashed 5px hotpink;*/
+    width: 100%;
+    border: dashed 3px crimson;
 }
 
 .input-inner-container{
     display: flex;
-    flex-grow: 1;
+    min-width: 70vw;
     flex-direction: column;
     align-items: center;
-    margin-top: 1vw;
     padding-bottom: 5vw;
-    padding-top: 18vw;
-    /*border: dashed 3px brown;*/
+    margin-top: 18vw;
+    border: solid 4px yellowgreen;
 }
 
 .dashboard-inner-container-1 {
     display: flex;
-    min-height: 35vw;
-    justify-content: space-around;
-    /*border: solid 3px orangered;*/
+    flex-grow: 1;
+    min-width: 70vw;
+    max-width: 100%;
+    justify-content: space-between;
 }
 
 .dashboard-inner-container-2 {
@@ -51,64 +51,67 @@
     flex-grow: 4;
     flex-direction: column;
     justify-content: space-between;
-    /*border: solid 3px lightblue;*/
 }
 
 .dashboard-inner-container-3 {
     display: flex;
     flex-grow: 2;
-    /*border: solid 3px #6D2A95;*/
+    border: dashed 3px lightblue;
 }
 
 .dashboard-inner-container-4 {
     display: flex;
     justify-content: space-around;
     flex-direction: column;
-
+    border: dashed 3px #551C71;
 }
 
 .first-section {
     display: flex;
-    justify-content: space-between;
-    font-size: 2vw;
-    min-width: 55vw;
+
+    font-size: 1.7vw;
+    max-width: 90%;
     border-radius: 20px;
     border: solid 6px dimgrey;
     background-color: var(--blue-grey);
-    margin-bottom: 2vw;
+    margin: 1.5vw 6vw;
 }
 
 .second-section {
     display: flex;
     flex-grow: 1;
+    width: 38vw;
     flex-direction: column;
-    font-size: 1.5vw;
-    padding-right: 1vw;
-    margin-right: 1vw;
+    align-items: center;
+    /*font-size: 1.5vw;*/
+    /*padding-right: 1vw;*/
+    /*margin-right: 1vw;*/
     border-radius: 20px;
     border: solid 6px dimgrey;
     background-color: var(--blue-grey);
 }
 
+.second-section button {
+    max-width: 5vw;
+}
+
 .third-section {
     display: flex;
-    /*border: solid 2px greenyellow;*/
-
 }
 
 .fourth-section {
     display: flex;
-
     border: dashed 3px white;
 }
 
 .sixth-section {
-    /*border: solid 2px #11D889;*/
     flex-grow: 2;
 }
 
 .button-container{
     display: flex;
-    justify-content: center;
-
+    position: absolute;
+    bottom: 2.7vw;
+    left: 33vw;
+    width: 14vw;
 }

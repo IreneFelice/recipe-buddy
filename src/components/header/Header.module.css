@@ -2,11 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    height: auto;
-    min-height: 100vh;
-    padding-top: 0;
+    max-width: 85vw;
 }
 
 .header-title-img-wrapper {
@@ -15,14 +11,14 @@
     align-self: flex-start;
     rotate: -2.5deg;
     position: relative;
-    top: calc(2vw + 1vh);
+    top: 1vw;
     z-index: -1;
 }
 
 .header-kitchen-img-wrapper {
-    max-width: 65vw;
+    max-width: 70vw;
     position: relative;
-    top: -6vw;
+    top: -5vw;
     left: 7vw;
     z-index: 0;
 }

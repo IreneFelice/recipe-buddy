@@ -22,6 +22,10 @@
     margin: 0 auto;
 }
 
+.book-left-page, .book-right-page {
+
+}
+
 .close-btn {
     background-color: #e63946;
     color: white;
@@ -35,10 +39,8 @@
 .buddy-welcoming-container {
     display: flex;
     justify-content: center;
-    /*top: calc((10vh*3) + 10vw);*/
-    margin-top: calc(22vw + (20vh / 4));
+    margin-top: 20vw;
     max-width: 90vw;
-    /*max-height: 100vh;*/
 }
 
 /* Mobile */

@@ -1,0 +1,17 @@
+.title-click button {
+    font-family: var(--book-list-text);
+    font-size: 1.5vw;
+    background-color: transparent;
+    text-align: start;
+}
+
+.title-click button:hover {
+    font-family: var(--book-list-text);
+    background-color: beige;
+    text-align: start;
+    border: solid 2px lightgoldenrodyellow;
+    border-radius: 25px;
+    padding: 0 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.6);
+}

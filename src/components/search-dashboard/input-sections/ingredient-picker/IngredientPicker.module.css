@@ -1,0 +1,48 @@
+.picker-inner-container {
+    display: flex;
+    width: 38vw;
+    row-gap: 5px;
+    column-gap: 1vw;
+    /*padding: 1.5rem;*/
+    margin: 1rem;
+    min-height: 50%;
+    border-radius: 15px;
+    background-color: #474485;
+    border: solid 3px #474485;
+}
+
+.column-fav-ingredients, .column-all-ingredients, .column-placeholder {
+    display: flex;
+    flex-grow: 1;
+    width: 50%;
+    height: 15vw;
+    overflow: auto;
+    font-size: 0.8vw;
+    padding-left: 10px;
+    background-color: lightsteelblue;
+}
+
+.column-fav-ingredients {
+    border-radius: 15px 0 0 15px;
+}
+
+.column-all-ingredients {
+    border-radius: 0 15px 15px 0;
+    clip-path: inset(0 0 0 0 round 0 15px 15px 0);
+}
+
+.column-fav-ingredients, .column-all-ingredients, .column-placeholder p {
+    font-size: 2vw;
+    line-height: 1;
+}
+
+.column-all-ingredients p:hover {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    column-gap: 10vw;
+}

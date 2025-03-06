@@ -8,10 +8,19 @@ import CustomButton from '../button/CustomButton.jsx';
 function BuddyQuote () {
     const {auth,isAuth} = useContext(AuthContext);
     const navigate = useNavigate();
-    const buddyQuoteLoggedIn = `Hi ${auth.user.name}! \nWelcome to my kitchen! \nI'm always happy to be your Buddy, and help you search \nfor the BEST RECIPES! Are you ready? \nScroll down to check out my cool dashboard!\nFeel free to use it and click on Search Recipes!\n Good Luck!`;
-    const buddyQuoteLoggedOut = 'Hi there!\nPlease log in first,\nso we can search recipes together.\nYou can also save your favorite recipes\nin your very own recipe book!';
+    const buddyQuoteLoggedIn = `Hi ${auth.user.name}! \nWelcome to my kitchen! \n
+                I'm always happy to be your Buddy, and help you search \n
+                for the BEST RECIPES!\n
+                Check out my cool dashboard below...\n
+                Try all settings and click the Search button!\n
+                Good Luck!`;
+    const buddyQuoteLoggedOut = `Hi there!\nPlease log in first,\n
+                so we can search recipes together.\n
+                You can also save your favorite recipes\n
+                in your very own recipe book!`;
     const lines = buddyQuoteLoggedIn.split("\n");
     const loggedOutLines = buddyQuoteLoggedOut.split("\n");
+
 return (
     <div className={styles['buddy-quote-outer-container']}>
 

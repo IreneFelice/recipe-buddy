@@ -71,7 +71,7 @@ function RecipeBook() {
         <div className='inner-page-container'>
             {isAuth ? (
                 <>
-                    <h1>{auth.user.name}'s Recipe Book</h1>
+                    <h2>{auth.user.name}'s Recipe Book</h2>
                     <div className={styles['book-outer-container']}>
                         <img
                             src={isMobile ? emptyPage : bookOpen}
