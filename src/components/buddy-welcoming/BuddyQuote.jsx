@@ -2,7 +2,7 @@ import {AuthContext} from '../../context/AuthContext.jsx';
 import {useContext} from 'react';
 import {useNavigate} from 'react-router-dom';
 import styles from './BuddyQuote.module.css'
-import CustomButton from '../button/CustomButton.jsx';
+import CustomButton from '../buttons/button/CustomButton.jsx';
 
 
 function BuddyQuote () {

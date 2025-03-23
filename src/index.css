@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Just+Me+Again+Down+Here&family=Love+Ya+Like+A+Sister&family=Quicksand&family=The+Girl+Next+Door&family=Unkempt:wght@400;700&display=swap');
 
+/*////////////////////////
+Table of Contents
+1. Global Styles
+2. Typography
+3. Layout
+3.1 Reusables
+3.2 Other
+4. Media Queries
+////////////////////////*/
+
 
 /* ------------------------------- 1. Global Styles -------------------------------- */
 
@@ -32,7 +42,6 @@ img {
 }
 
 body {
-    /*background: linear-gradient(180deg, #FDCE0D 30%, #FCBB15 54%, #FCBA15 72.5%, #FBAA1B 100%);*/
     background: linear-gradient(180deg, var(--yellow-light) 30%, var(--yellow-mid) 54%, var(--yellow-dark) 100%);
     font-family: Inter, system-ui, Arial, sans-serif;;
     display: flex;
@@ -55,7 +64,8 @@ body {
     --buddy-quote-small: 'Quicksand';
 
     /**/
-  --blue-grey: #7791A8;
+  --blue-grey: #668db3;
+    /* TODO: add important colors */
 
     /*Body Background colors*/
   --yellow-light: #FDCE0D;
@@ -106,6 +116,8 @@ p {
 
 .inner-page-container {
     width: 85vw;
+    max-width: 1500px;
+    margin: auto;
     min-height: 100vh;
     height: auto;
     display: flex;
@@ -117,3 +129,4 @@ p {
 /* --------------- 3.2 Other --------------------------- */
 
 
+/* --------------- 4 Media Queries --------------------------- */

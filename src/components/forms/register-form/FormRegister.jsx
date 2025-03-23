@@ -28,7 +28,7 @@ function RegisterForm({errorMessage, newName}) {
 
         } catch (error) {
             console.error(error);
-            errorMessage("Something went wrong, please try again.");
+            errorMessage("...something went wrong :( Please try again later.");
         }
     }
 

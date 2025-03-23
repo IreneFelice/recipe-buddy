@@ -15,6 +15,7 @@ function RecipeBook() {
     const [singleSelected, setSingleSelected] = useState(null);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
+    // single or double page presentation
     useEffect(() => {
         const handleResize = () => {
             setIsMobile(window.innerWidth <= 768);
@@ -24,6 +25,7 @@ function RecipeBook() {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
+    //Get saved recipes from backend
     useEffect(() => {
         const token = localStorage.getItem('token');
 
@@ -48,6 +50,8 @@ function RecipeBook() {
             void getSavedRecipes();
         }
     }, []);
+
+    //update savedRecipes
 
 
     function handleTitleClick(uri) {

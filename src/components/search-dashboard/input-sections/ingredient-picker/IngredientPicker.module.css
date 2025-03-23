@@ -1,39 +1,75 @@
+.picker-outer-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 200px;
+    padding: 1vw;
+    align-items: center;
+}
+
+/******* Button favorite and Dislike *****/
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.button-container button {
+    width: auto;
+    padding: 1vw 1.2vw;
+    font-size: clamp(1rem, 1.4vw, 2rem);
+}
+
+/************** Columns **************/
 .picker-inner-container {
     display: flex;
-    width: 38vw;
+    width: 100%;
     row-gap: 5px;
     column-gap: 1vw;
-    /*padding: 1.5rem;*/
     margin: 1rem;
-    min-height: 50%;
+    max-height: 65%;
     border-radius: 15px;
     background-color: #474485;
     border: solid 3px #474485;
 }
 
-.column-fav-ingredients, .column-all-ingredients, .column-placeholder {
+.column-fav-ingredients, .column-all-ingredients, .column-dislike-ingredients {
     display: flex;
     flex-grow: 1;
     width: 50%;
-    height: 15vw;
-    overflow: auto;
-    font-size: 0.8vw;
+    max-width: 100%;
+    height: auto;
     padding-left: 10px;
-    background-color: lightsteelblue;
+    overflow: auto;
+    white-space: nowrap;
 }
 
-.column-fav-ingredients {
+.column-fav-ingredients, .column-dislike-ingredients {
     border-radius: 15px 0 0 15px;
+    background-color: lightsteelblue;
+    flex-direction: column;
+    padding-top: 10px;
+}
+
+.column-fav-ingredients li, .column-dislike-ingredients li, .column-all-ingredients li {
+    display: flex;
+    /*min-height: 5vw;*/
+    min-width: 100%;
+    column-gap: 10px;
+    align-items: end;
+}
+
+.column-fav-ingredients li p, .column-dislike-ingredients li p, .column-all-ingredients li p {
+    font-family: "Comic Sans MS";
+    font-size: 1rem;
+    line-height: 1;
 }
 
 .column-all-ingredients {
     border-radius: 0 15px 15px 0;
     clip-path: inset(0 0 0 0 round 0 15px 15px 0);
-}
-
-.column-fav-ingredients, .column-all-ingredients, .column-placeholder p {
-    font-size: 2vw;
-    line-height: 1;
+    background-color: lightsteelblue;
+    padding-top: 10px;
 }
 
 .column-all-ingredients p:hover {
@@ -41,8 +77,48 @@
     font-weight: bold;
 }
 
-.button-container {
-    display: flex;
-    justify-content: center;
-    column-gap: 10vw;
+/************** instruction text ************/
+.instruction {
+    font-family: "Times New Roman";
+    line-height: inherit;
+    font-size: 1rem;
+
 }
+
+/********** Little square close button *******/
+/*.close-button-container {*/
+/*    display: flex;*/
+
+/*    !*min-width: 50px;*!*/
+/*}*/
+
+.close-button {
+    font-family: Arial, sans-serif;
+    color: lightgrey;
+    min-height: 1.5vw;
+    aspect-ratio: 1/1;
+    padding: 0.2vw;
+    border-radius: 5px;
+    /*margin-top: 3px;*/
+    /*margin-right: 5px;*/
+    background: linear-gradient(90deg, #9E2A2F 0%, #BF5A4A 100%);
+    position: relative;
+}
+
+
+.close-button p {
+    position: absolute;
+    top: 50%; /* move down with top edged to center height of button */
+    left: 50%; /* move to right*/
+    transform: translate(-50%, -50%); /* move up and to left with 50% of size  */
+
+
+}
+
+.close-button:hover {
+    background: crimson;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4), inset 4px 4px 4px #F53945;
+    color: white;
+}
+
+

@@ -1,4 +1,4 @@
-/*<CustomButton text="" color="purple/mint/blue"} />*/
+/*<CustomButton text="" color="purple/mint/blue" type="" } />*/
 
 .button {
     all: unset;
@@ -11,7 +11,7 @@
     min-width: 5vw;
     justify-content: center;
     padding: 0.7vw 3vw;
-    font-size: 2.5vw;
+    font-size: 2vw;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
@@ -42,6 +42,12 @@
     color: white;
 }
 
+.mint-active {
+    background: linear-gradient(90deg, #4EE0B9 0%, #11D889 100%);
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4), inset 0 4px 12px #FFF;
+    color: white;
+}
+
 /* Blue button */
 .blue {
     background: linear-gradient(90deg, #216CB8 0%, #184A8D 100%);
@@ -61,6 +67,12 @@
 }
 
 .red:hover {
+    background: linear-gradient(90deg, #B94F4A 0%, #D26B5F 100%);
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4), inset 0 4px 12px #FFF;
+    color: white;
+}
+
+.red-active {
     background: linear-gradient(90deg, #B94F4A 0%, #D26B5F 100%);
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4), inset 0 4px 12px #FFF;
     color: white;

@@ -1,16 +1,18 @@
 
 .multi-select-dropdown {
     font-family: Arial, sans-serif;
-    width: 250px;
+    width: 200px;
     position: relative;
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
     border-radius: 8px;
     background-color: #fff;
-    overflow: hidden;
+    overflow: visible;
+    border: lightpink 2px solid;
 }
 
 .dropdown-display {
     padding: 10px;
+    border-radius: 8px;
     background-color: #f9f9f9;
     cursor: pointer;
     display: flex;
@@ -25,39 +27,40 @@
 }
 
 .dropdown-options {
-    max-height: 0;  /* 0 because hidden */
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-    border-top: 1px solid rgba(139, 113, 164, 0.9);
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 3px solid rgba(139, 113, 164, 0.9);
+    background-color: #fff;
+    z-index: 10;
+    /*box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);*/
 }
 
 .dropdown-options.open {
-    max-height: 200px;
-    overflow-y: auto;
+    display: block;
 }
 
-.dropdown-option {
+.dropdown-single-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     padding: 10px;
     cursor: pointer;
     background-color: #fff;
-    transition: background-color 0.2s ease;
 }
 
-.dropdown-option:hover {
+.dropdown-single-option:hover {
     background-color: #f1f1f1;
 }
 
-.dropdown-option.selected {
-    background-color: purple;
-    color: white;
-    font-weight: bold;
+.checkbox {
+    transform: scale(1.2);  /* make checkbox bigger */
 }
 
-.dropdown-options::-webkit-scrollbar {
-    width: 8px;
-}
-
-.dropdown-options::-webkit-scrollbar-thumb {
-    background-color: #ccc;
-    border-radius: 4px;
+.option-label {
+    flex-grow: 1;
 }

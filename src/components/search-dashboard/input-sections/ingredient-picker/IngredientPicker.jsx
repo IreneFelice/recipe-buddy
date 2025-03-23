@@ -1,75 +1,101 @@
-import {useState} from "react";
+import {useState} from 'react';
 import ingredientList from '/src/constants/ingredientList.js';
 import styles from './IngredientPicker.module.css';
-import CustomButton from '../../../button/CustomButton.jsx';
+import CustomButton from '../../../buttons/button/CustomButton.jsx';
 
-function IngredientPicker({toggleFavorite}) {
-    const [availableIngredients, setAvailableIngredients] = useState(ingredientList);
-    const [selectedIngredients, setSelectedIngredients] = useState([]);
-    const [excludedIngredients, setExcludedIngredients] = useState([]);
+function IngredientPicker({ selectedIngredients, setSelectedIngredients, excludedIngredients, setExcludedIngredients }) {
+    const [availableIngredients , setAvailableIngredients] = useState(ingredientList);
     const [isFavoriteActive, toggleIsFavoriteActive] = useState(true);
     const [isDislikeActive, toggleIsDislikeActive] = useState(false);
 
-    const handleSelect = (ingredient) => {
-        if (selectedIngredients.includes(ingredient) || selectedIngredients.length >= 5) return;
-        setSelectedIngredients([...selectedIngredients, ingredient]);
+    function handleSelectFav (ingredient) {
+        if (selectedIngredients.length >= 1) return;
+        {setSelectedIngredients([...selectedIngredients, ingredient])}
+        setAvailableIngredients(availableIngredients.filter(item => item !== ingredient));
+    };
+
+    function handleSelectDislike (ingredient) {
+        if (excludedIngredients.length >= 5) return;
+        {setExcludedIngredients([...excludedIngredients, ingredient])}
         setAvailableIngredients(availableIngredients.filter(item => item !== ingredient));
     };
 
     const handleRemove = (ingredient) => {
-        setSelectedIngredients(selectedIngredients.filter(item => item !== ingredient));
-        setAvailableIngredients([...availableIngredients, ingredient]);
+        if (isFavoriteActive) {
+            setSelectedIngredients(selectedIngredients.filter(item => item !== ingredient));}
+        else {setExcludedIngredients(excludedIngredients.filter(item => item !== ingredient))};
+        setAvailableIngredients([...availableIngredients, ingredient]); //put back ingredient
     };
 
     function handleButtonFav() {
         if (isFavoriteActive === false) {
-            toggleIsFavoriteActive(!isFavoriteActive);
-            toggleIsDislikeActive(!isDislikeActive);
+            toggleIsFavoriteActive(true);
+            toggleIsDislikeActive(false);
         }
     }
 
     function handleButtonDislike() {
         if (isDislikeActive === false) {
-            toggleIsDislikeActive(!isDislikeActive);
-            toggleIsFavoriteActive(!isFavoriteActive);
+            toggleIsDislikeActive(true);
+            toggleIsFavoriteActive(false);
         }
     }
 
     return (
         <div className={styles['picker-outer-container']}>
             <div className={styles['button-container']}>
-                <CustomButton text='favorites' color={isFavoriteActive ? ('mint') : ('blue')}
-                              onClick={handleButtonFav}/>
-                <CustomButton text='disLike' color={isDislikeActive ? ('red') : ('blue')}
-                              onClick={handleButtonDislike}/>
+                    <CustomButton text='favorite' color={isFavoriteActive ? ('mint-active') : ('blue')}
+                       onClick={handleButtonFav}/>
+                    <CustomButton text='disLike' color={isDislikeActive ? ('red-active') : ('blue')}
+                         onClick={handleButtonDislike}/>
             </div>
             <div className={styles['picker-inner-container']}>
-                {/* Selected ingredients */}
-                {isFavoriteActive ? (
+                {/* Selected favorite ingredients */}
+                {isFavoriteActive && (
                     <div className={styles['column-fav-ingredients']}>
-
-                        <ul className="space-y-2">
+                        <ul>
                             {selectedIngredients.map((ingredient) => (
-                                <li key={ingredient}
-                                    className="p-2 border rounded flex justify-between items-center bg-gray-200">
-                                    {ingredient}
-                                    <button className="ml-4 text-red-500" onClick={() => handleRemove(ingredient)}>✕
+                                <li key={ingredient}>
+
+                                    <button type='button' className={styles['close-button']} onClick={() => handleRemove(ingredient)}>
+                                        <p>X</p>
                                     </button>
+
+                                    <p>{ingredient}</p>
+
                                 </li>
                             ))}
                         </ul>
-                    </div>) : (
-                    <div className={styles['column-placeholder']}><p>Click one of the buttons above to select your
-                        favorite ingredients, or tell which ingredients you DON'T want to find.</p></div>)}
+                        <p className={styles['instruction']}>Pick 1 favorite ingredient</p>
+                    </div>)}
+
+                {/* Selected disliked ingredients */}
+                {isDislikeActive && (
+                    <div className={styles['column-dislike-ingredients']}>
+                        <ul>
+                            {excludedIngredients.map((ingredient) => (
+                                <li key={ingredient}>
+
+                                    <button type='button' className={styles['close-button']} onClick={() => handleRemove(ingredient)}>
+                                        <p>X</p>
+                                    </button>
+
+                                   <p>{ingredient}</p>
+
+                                </li>
+                            ))}
+                        </ul>
+                        <p className={styles['instruction']}>Pick max 5 ingredients</p>
+                    </div>)
+                }
 
                 {/* all available Ingredient */}
                 <div className={styles['column-all-ingredients']}>
-
-                    <ul className="grid grid-cols-2 gap-2">
+                    <ul>
                         {availableIngredients.map((ingredient) => (
                             <li key={ingredient}
-                                className={styles['p-2 border rounded cursor-pointer hover:bg-gray-100']}
-                                onClick={() => handleSelect(ingredient)}>
+                                onClick={() =>  {isFavoriteActive ? (handleSelectFav(ingredient)) : (handleSelectDislike(ingredient))} }
+                                >
                                 <p>{ingredient}</p>
                             </li>
                         ))}

@@ -6,19 +6,22 @@ import SearchDashboard from '../../components/search-dashboard/SearchDashboard.j
 import PresentedSearchResults from '../../components/present-search-results/PresentedSearchResults.jsx';
 
 function Home() {
+    const {isAuth} = useContext(AuthContext);
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [fullUrl, setFullUrl] = useState('');
+    const [zeroFound, toggleZeroFound] = useState(false);
     const [foundRecipes, setFoundRecipes] = useState(() => {
         const savedResults = sessionStorage.getItem('searchResults');
         return savedResults ? JSON.parse(savedResults) : [];
     });
-    const {isAuth} = useContext(AuthContext);
-    console.log("Recipes found in sessionStorage: ", sessionStorage.getItem('searchResults'));
+
 
     //////////// get New Recipe Data /////////////////////////
     useEffect(() => {
-        if (!fullUrl) return;
+        if (!fullUrl)
+            return;
+
         const controller = new AbortController();
         const signal = controller.signal;
 
@@ -30,7 +33,7 @@ function Home() {
 
         const getRecipes = async () => {
             try {
-                setError('');
+                setError(''); //reset error
                 setIsLoading(true);
 
                 const response = await axios.get(fullUrl, {signal});
@@ -44,6 +47,7 @@ function Home() {
                 clearTimeout(timeOutLoading);
                 setIsLoading(false);
 
+                toggleZeroFound(slicedRecipes.length === 0);
             } catch (e) {
                 console.error("Failed search request:", e);
                 clearTimeout(timeOutLoading);
@@ -51,8 +55,8 @@ function Home() {
                 setIsLoading(false);
             }
         };
-
         void getRecipes();
+
 
         return () => {
             controller.abort();
@@ -68,8 +72,10 @@ function Home() {
                     <SearchDashboard passUrl={setFullUrl}/>
                     {error && <p>{error}</p>}
                     {!error && isLoading && <p>Loading...</p>}
-                    {foundRecipes?.length > 0 &&
-                        <PresentedSearchResults results={foundRecipes} editResults={setFoundRecipes}/>}
+
+                    {foundRecipes?.length > 0 ?
+                        (<PresentedSearchResults results={foundRecipes} editResults={setFoundRecipes}/>)
+                    : (zeroFound && <p>Sorry, no recipes found that match your wishes. Try again with less wishes, for example search with less disliked ingredients</p>)}
                 </>
             ) : <h3>You need to login first.</h3>
             }

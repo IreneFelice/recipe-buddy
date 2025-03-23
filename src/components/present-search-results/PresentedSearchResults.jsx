@@ -2,6 +2,7 @@ import styles from './PresentedSearchResults.module.css';
 import {useContext, useState, useEffect} from 'react';
 import axios from 'axios';
 import {AuthContext} from '../../context/AuthContext.jsx';
+import PresentRecipeList from '../present-recipe-list/PresentRecipeList.jsx';
 
 function PresentedSearchResults({results, editResults}) {
     const [userInfoList, setUserInfoList] = useState([]);
@@ -99,9 +100,7 @@ function PresentedSearchResults({results, editResults}) {
     return (
         <div className={styles['results-outer-container']}>
             <section className={styles['results-container']}>
-                {maxNumberSaved &&
-                    <p><strong>Your recipe book can not take more recipes. Delete one or more old ones
-                        first.</strong></p>}
+
                 {results.length > 0 && (
                     <div><h3>Results:</h3>
                         <ul>
@@ -139,7 +138,10 @@ function PresentedSearchResults({results, editResults}) {
             </section>
 
             <section className={styles['manage-results-container']}>
-                <p>manage results section</p>
+              <p>You have {savedRecipesNumber} recipes saved in your Recipe Book!</p>
+                <p>Your Recipe Book can hold {maxTotal} recipes,</p>
+                {maxNumberSaved ? <p><strong>Your Recipe Book is full. Delete old recipes first, to add new ones.</strong></p>
+                : <p>so you can save {maxTotal - savedRecipesNumber} more</p>}
             </section>
 
         </div>

@@ -1,24 +1,25 @@
+
 .header-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 85vw;
+    max-width: 85%;
 }
 
 .header-title-img-wrapper {
-    min-width: 250px;
-    max-width: 50vw;
-    align-self: flex-start;
+    min-width: 150px;
+    max-width: 1000px;
+    left: -2vw;
+    margin-top: clamp(1vw, 3vw, 30px);
     rotate: -2.5deg;
-    position: relative;
-    top: 1vw;
     z-index: -1;
 }
 
 .header-kitchen-img-wrapper {
-    max-width: 70vw;
+    max-width: 1400px;
     position: relative;
-    top: -5vw;
-    left: 7vw;
+    top: clamp(-2vw, -5vw, -50px);
+    padding-left: 7vw;
     z-index: 0;
 }
+
