@@ -2,7 +2,7 @@ import styles from './PresentedSearchResults.module.css';
 import {useContext, useState, useEffect} from 'react';
 import axios from 'axios';
 import {AuthContext} from '../../context/AuthContext.jsx';
-import PresentRecipeList from '../present-recipe-list/PresentRecipeList.jsx';
+import CustomButton from '../buttons/button/CustomButton.jsx';
 
 function PresentedSearchResults({results, editResults}) {
     const [userInfoList, setUserInfoList] = useState([]);
@@ -40,8 +40,8 @@ function PresentedSearchResults({results, editResults}) {
     //when user.info gets updated (mounting or after put-request)
     useEffect(() => {
         toggleMaxNumberSaved(savedRecipesNumber >= maxTotal);
-        console.log("savedRecipes: ", savedRecipesNumber, "Max?", maxNumberSaved);
-    }, [userInfoList]);
+        // console.log("savedRecipes: ", savedRecipesNumber, "Max?", maxNumberSaved);
+    }, [userInfoList, savedRecipesNumber]);
 
     //when user tries to save recipe
     //set state newRecipeList
@@ -54,12 +54,11 @@ function PresentedSearchResults({results, editResults}) {
             return;
         }
         setNewRecipeList((prevRecipes) => [...prevRecipes, newRecipe]);
-        console.log("newRecipes: ", newRecipeList);
     }
 
-    function handleDeleteResult(recipeUri) {
-        editResults(results.filter(recipe => recipe.recipe.uri !== recipeUri));
-    }
+    // function handleDeleteResult(recipeUri) {
+    //     editResults(results.filter(recipe => recipe.recipe.uri !== recipeUri));
+    // }
 
     //when newRecipeList state updates
     useEffect(() => {
@@ -105,7 +104,8 @@ function PresentedSearchResults({results, editResults}) {
                     <div><h3>Results:</h3>
                         <ul>
                             {results.map((result) => (
-                                <li className={styles['result-block']} key={result.recipe.uri}>
+                                <li className={styles['result-block-container']} key={result.recipe.uri}>
+                                   <div className={styles['result-block']}>
                                     <h5>{result.recipe.label}</h5>
                                     <img
                                         src={result.recipe.image}
@@ -121,15 +121,19 @@ function PresentedSearchResults({results, editResults}) {
                                             View Recipe
                                         </a>
                                     </p>
-                                    <button type='button' onClick={() => handleSaveRecipe({
-                                        'title': result.recipe.label,
-                                        'uri': result.recipe.uri
-                                    })}>
-                                        Save Recipe
-                                    </button>
-                                    <button type='button' onClick={() => handleDeleteResult(result.recipe.uri)}>
-                                        Delete
-                                    </button>
+                                   </div>
+                                    <CustomButton
+                                        text= "Save Recipe"
+                                        color= "mint"
+                                        onClick={() => handleSaveRecipe({
+                                            title: result.recipe.label,
+                                            uri: result.recipe.uri
+                                        })}
+                                    />
+
+                                    {/*<button type='button' onClick={() => handleDeleteResult(result.recipe.uri)}>*/}
+                                    {/*    Delete*/}
+                                    {/*</button>*/}
                                 </li>
                             ))}
                         </ul>

@@ -1,6 +1,8 @@
 import styles from './CustomButton.module.css';
 
-const CustomButton = ({ text, color = 'purple', onClick, type = "button" }) => {
+/*<CustomButton text="" color="purple/mint/blue" } />*/
+
+const CustomButton = ({ text, color = 'purple', onClick, type = 'button' }) => {
     return (
         <button
             type={type}

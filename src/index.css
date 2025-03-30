@@ -64,15 +64,28 @@ body {
     --buddy-quote-small: 'Quicksand';
 
     /**/
-  --blue-grey: #668db3;
-    /* TODO: add important colors */
+    --soft-pink: #EA8497;
+    --buddy-lavender: #99469B;
+    --purple-accent: #9D05E5;
+    --royal-purple: #64178A;
+    --blue-purple: #512776;
+    --blue-purple-dark: #483F82;
+    --darkest-blue: #0C3A59;
+    --dark-blue: #11537F;
+    --mid-blue: #216CB8;
+    --light-blue: #6298CE;
+    --accent-blue: #73CEE5;
+    --blue-grey-dark: #3D6681;
+    --blue-grey-light: #5787A6;
+
 
     /*Body Background colors*/
-  --yellow-light: #FDCE0D;
-  --yellow-mid: #FCBB15;
-  --yellow-dark: #FBAA1B;
+    --yellow-light: #FDCE0D;
+    --yellow-mid: #FCBB15;
+    --yellow-dark: #FBAA1B;
 
 }
+
 h1, h2 {
     font-family: var(--special-title), Merriweather, serif;
 }

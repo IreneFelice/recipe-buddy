@@ -1,5 +1,3 @@
-/*<CustomButton text="" color="purple/mint/blue" type="" } />*/
-
 .button {
     all: unset;
     font-family: var(--button-text);
