@@ -1,0 +1,13 @@
+.show-recipe{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.show-recipe h5{
+    font-family: var(--buddy-quote-small);
+}
+
+.show-recipe-title-box{
+
+}

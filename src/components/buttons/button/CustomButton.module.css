@@ -65,13 +65,13 @@
 }
 
 .red:hover {
-    background: linear-gradient(90deg, #B94F4A 0%, #D26B5F 100%);
+    background: linear-gradient(90deg, #d95844 0%, #D26B5F 100%);
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4), inset 0 4px 12px #FFF;
     color: white;
 }
 
 .red-active {
-    background: linear-gradient(90deg, #B94F4A 0%, #D26B5F 100%);
+    background: linear-gradient(90deg, #dd4d38 0%, #f63b24 100%);
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4), inset 0 4px 12px #FFF;
     color: white;
 }
@@ -86,6 +86,13 @@
     background: linear-gradient(90deg, #FFCD47 0%, #F3C53D 100%);
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4), inset 0 4px 12px #FFF;
     color: white;
+}
+
+.grey {
+    background: linear-gradient(90deg, #64636d 0%, rgba(61, 61, 86, 0.83) 100%);
+    box-shadow: 0 4px 10px rgba(119, 117, 117, 0.81), 0 0 20px rgba(253, 248, 248, 0.16), inset 0 4px 12px rgba(160, 158, 158, 0.96);
+    color: rgba(255, 255, 255, 0.64);
+    cursor: unset;
 }
 
 @media (min-width: 1000px) {

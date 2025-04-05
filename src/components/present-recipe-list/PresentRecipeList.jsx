@@ -7,7 +7,7 @@ function PresentRecipeList({handleTitleClick, savedRecipes}) {
         {savedRecipes.map((recipe) => (
             <li key={recipe.uri} className={styles['title-click']}>
                 <button type="button"
-                        onClick={() => handleTitleClick(recipe.uri)}>
+                        onClick={() => handleTitleClick(recipe.uri, recipe.title)}>
                     {recipe.title}
                 </button>
             </li>

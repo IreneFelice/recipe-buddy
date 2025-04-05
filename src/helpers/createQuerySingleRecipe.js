@@ -9,6 +9,7 @@ function createQuerySingleRecipe(uri) {
         'field=label',
         'field=image',
         'field=url',
+        'field=uri',
         'field=healthLabels',
         'field=ingredientLines',
         'field=totalTime',

@@ -12,7 +12,7 @@ import BuddyWelcoming from '../../components/buddy-welcoming/BuddyWelcoming.jsx'
 function RecipeBook() {
     const {auth, isAuth, userRequest} = useContext(AuthContext);
     const [savedRecipes, setSavedRecipes] = useState([]);
-    const [singleSelected, setSingleSelected] = useState(null);
+    const [singleSelected, setSingleSelected] = useState('');
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
     // single or double page presentation
@@ -20,7 +20,6 @@ function RecipeBook() {
         const handleResize = () => {
             setIsMobile(window.innerWidth <= 768);
         };
-
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
@@ -28,7 +27,6 @@ function RecipeBook() {
     //Get saved recipes from backend
     useEffect(() => {
         const token = localStorage.getItem('token');
-
         if (token) {
             const getSavedRecipes = async () => {
                 try {
@@ -38,37 +36,72 @@ function RecipeBook() {
                             Authorization: `Bearer ${token}`,
                         }
                     });
-
                     if (response.data.info) {
                         setSavedRecipes(JSON.parse(response.data.info));
+                        console.log("savedRecipes: ", JSON.parse(response.data.info));
                     }
                 } catch (error) {
                     console.error("Get saved recipes failed", error);
                 }
             };
-
             void getSavedRecipes();
         }
     }, []);
 
     //update savedRecipes
+    async function updateRecipes(updatedList, oldList) {
+        const token = localStorage.getItem('token');
+        if (token) {
+            try {
+                await axios.put(userRequest,
+                    {
+                        'info': JSON.stringify(updatedList),
+                    }, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${token}`,
+                        }
+                    });
+            } catch (error) {
+                console.error("saveRecipes failed", error);
+                setSavedRecipes(oldList); //if update to backend failed, set state back to previous
+            }
+        }
+    }
 
-
-    function handleTitleClick(uri) {
+    function handleTitleClick(uri, title) {
         const requestEndPoint = createQuerySingleRecipe(uri);
-
         const retrieveSingleRecipe = async () => {
             try {
                 const response = await axios.get(requestEndPoint);
                 if (response) {
-                    setSingleSelected(response);
+                    setSingleSelected({rec: response.data.hits[0].recipe, title: title});
                 }
             } catch (error) {
                 console.error("Get single recipe details failed", error);
             }
         };
-
         void retrieveSingleRecipe();
+    }
+
+    function deleteRecipe(uri) {
+        const oldList = savedRecipes;
+        const updatedList = savedRecipes.filter(recipe => recipe.uri !== uri);
+        setSavedRecipes(updatedList);
+        void updateRecipes(updatedList, oldList);
+        console.log("delete clicked. Uri: ", uri, "updated list: ", updatedList);
+    }
+
+    function editRecipe(newLabel, editUri){
+        console.log("properties: label: ", newLabel, ", uri: ", editUri);
+        const oldList = savedRecipes;
+        console.log("old list: ", oldList);
+        const updatedList = savedRecipes.map(recipe =>
+            recipe.uri === editUri ? { ...recipe, title: newLabel } : recipe
+        );
+        console.log("updated list: ", updatedList);
+        setSavedRecipes(updatedList);
+        void updateRecipes(updatedList, oldList);
     }
 
     return (
@@ -89,10 +122,9 @@ function RecipeBook() {
                                     <section className={styles['book-right-page']}>
                                         <PresentSingleRecipe
                                             singleRecipe={singleSelected}
-                                            editSingleRecipe={setSingleSelected}
-                                            editBookList={setSavedRecipes}
-                                            bookList={savedRecipes}
                                             closeRecipe={setSingleSelected}
+                                            editRecipe={editRecipe}
+                                            deleteRecipe={deleteRecipe}
                                         />
                                     </section>
                                 ) : (
@@ -116,13 +148,12 @@ function RecipeBook() {
                                         {singleSelected ? (
                                             <PresentSingleRecipe
                                                 singleRecipe={singleSelected}
-                                                editSingleRecipe={setSingleSelected}
-                                                editBookList={setSavedRecipes}
-                                                bookList={savedRecipes}
                                                 closeRecipe={setSingleSelected}
+                                                editRecipe={editRecipe}
+                                                deleteRecipe={deleteRecipe}
                                             />
                                         ) : (
-                                            <p>Click on a recipe to read</p>
+                                            <p>Click on a recipe to view</p>
                                         )}
                                     </section>
                                 </>
@@ -132,7 +163,7 @@ function RecipeBook() {
                 </>
             ) : (
                 <div className={styles['buddy-welcoming-container']}>
-                <BuddyWelcoming/>
+                    <BuddyWelcoming/>
                 </div>
             )}
         </div>
