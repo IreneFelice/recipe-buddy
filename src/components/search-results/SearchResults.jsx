@@ -5,6 +5,7 @@ import {AuthContext} from '../../context/AuthContext.jsx';
 import CustomButton from '../buttons/button/CustomButton.jsx';
 import IconSaved from '../../assets/icon-saved.svg';
 import {useNavigate} from 'react-router-dom';
+import storeToUserInfo from '../../helpers/recipeService.js';
 
 //\ 1. get max 6 search results
 //\ 2. save results to session storage
@@ -17,21 +18,23 @@ import {useNavigate} from 'react-router-dom';
 function SearchResults({fullUrl, setFullUrl}) {
     const {userRequest} = useContext(AuthContext);
     const navigate = useNavigate();
-    /** 6 temporarily saved search results: **/
+
+    /** 6 search results temporarily saved in sessionStorage: **/
     const [searchResults, setSearchResults] = useState(() => {
         const savedResults = sessionStorage.getItem('searchResults');
         return savedResults ? JSON.parse(savedResults) : [];
     });
 
     /***** recipes saved in Backend, state gets loaded at mounting phase: **/
+    // const [isInitialLoad, setIsInitialLoad] = useState(true);
     const [savedBookRecipes, setSavedBookRecipes] = useState([]);
 
     /******* checks for UI ********/
     const [zeroFound, toggleZeroFound] = useState(false);
     const maxTotal = 9;
-    const [maxNumberSaved, toggleMaxNumberSaved] = useState((maxTotal - savedBookRecipes.length) <= 2);
+    const [maxNumberSaved, toggleMaxNumberSaved] = useState(false);
 
-    /****** error handling ********/
+    /****** error (and such) handling ********/
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
@@ -41,6 +44,12 @@ function SearchResults({fullUrl, setFullUrl}) {
     /*** Get Backend recipes at mounting ***/
     useEffect(() => {
         const getSavedBookRecipes = async () => {
+            const cached = sessionStorage.getItem('savedBookRecipes');
+            if (cached) {
+                setSavedBookRecipes(JSON.parse(cached));
+                return;
+            }
+
             const token = localStorage.getItem('token');
             if (!token) return;
 
@@ -49,16 +58,20 @@ function SearchResults({fullUrl, setFullUrl}) {
                     headers: {Authorization: `Bearer ${token}`},
                 });
                 const storedRecipes = response.data.info ? JSON.parse(response.data.info) : [];
-                console.log("recipes from user.data.info to savedBook state: ", storedRecipes);
-                // load retrieved storedRecipes to 'savedBookRecipes'
                 setSavedBookRecipes(storedRecipes);
-
+                sessionStorage.setItem('savedBookRecipes', JSON.stringify(storedRecipes));
             } catch (error) {
                 console.error("Error fetching saved recipes:", error);
             }
         };
+
         void getSavedBookRecipes();
     }, []);
+
+    /*** check max number saved at refresh ***/
+    useEffect(() => {
+        toggleMaxNumberSaved((maxTotal - savedBookRecipes.length) <= 1);
+    }, [savedBookRecipes]);
 
     /*** get max 6 new search results, when fullUrl received ***/
     useEffect(() => {
@@ -117,41 +130,21 @@ function SearchResults({fullUrl, setFullUrl}) {
             alert("Recipe already saved, not adding");
             return;
         }
+        toggleMaxNumberSaved((maxTotal - savedBookRecipes.length) <= 2);
+
         /** add new recipe to state list from backend **/
         const updatedRecipes = [...savedBookRecipes, newRecipe];
+
         /** add the new recipe to list in state **/
         setSavedBookRecipes(prev => [...prev, newRecipe]);
-        /*** Save updated list with newRecipe to backend ***/
-        void saveRecipes(updatedRecipes); //to backend
-        toggleMaxNumberSaved((maxTotal - savedBookRecipes.length) <= 2);
-    }
 
-    async function saveRecipes(updatedRecipes) {
+        /*** Save updated state list, including newRecipe, to backend ***/
         const token = localStorage.getItem('token');
-        if (token) {
-            /**  check maxTotal of updated recipe list **/
-            if (updatedRecipes.length <= maxTotal) {
-
-                /** put-request updated recipeList to user.info in Backend **/
-                try {
-                    await axios.put(userRequest,
-                        {
-                            'info': JSON.stringify(updatedRecipes),
-                        }, {
-                            headers: {
-                                'Content-Type': 'application/json',
-                                Authorization: `Bearer ${token}`,
-                            }
-                        });
-                } catch (error) {
-                    console.error("saveRecipes failed", error);
-                }
-            } else {
-                toggleMaxNumberSaved(true);
-                console.log("max exceeded");
-            }
+        if (token && updatedRecipes.length <= maxTotal) {
+            void storeToUserInfo(userRequest, updatedRecipes, token);
         }
     }
+
 
     /*** empty backend recipeList***/
     // const deleteAllRecipes = async () => {
@@ -222,16 +215,18 @@ function SearchResults({fullUrl, setFullUrl}) {
                                     </li>
                                 ))}
                             </ul>
-
                         </section>
+
                         <section className={styles['manage-results-container']}>
                             <p>You have <strong>{savedBookRecipes.length}</strong> recipes saved in your Recipe Book!
                             </p>
-                            <p>Your Recipe Book can hold <strong>{maxTotal}</strong> recipes.</p>
                             {maxNumberSaved ? (
                                 <p><strong>Your Recipe Book is full. Delete old recipes first.</strong></p>
                             ) : (
-                                <p>You can save <strong>{maxTotal - savedBookRecipes.length}</strong> more.</p>
+                                <>
+                                    <p>Your Recipe Book can hold <strong>{maxTotal}</strong> recipes.</p>
+                                    <p>So you can save <strong>{maxTotal - savedBookRecipes.length}</strong> more.</p>
+                                </>
                             )}
 
                             <CustomButton

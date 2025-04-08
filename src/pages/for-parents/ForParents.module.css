@@ -1,0 +1,113 @@
+.top-text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2vw;
+    text-align: center;
+}
+
+.top-text p {
+    width: 50vw;
+}
+
+
+.buddy-speaking-parents-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10vw;
+    width: clamp(180px, 90vw, 100%);
+    aspect-ratio: 3 / 1.8;
+    padding-top: 8vw;
+}
+
+
+.buddy-speaking-parents-container p {
+    font-family: var(--buddy-quote-small);
+}
+
+.buddy-speaking-parents-container img {
+    min-width: 140px;
+}
+
+
+.buddy-speaking-parents-container button {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+@media screen and (min-width: 768px) {
+    .buddy-speaking-parents-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 12vw;
+        min-width: clamp(300px, 90vw, 100%);
+        aspect-ratio: 3 / 1.8;
+        padding-top: 8vw;
+    }
+
+    .buddy-speaking-parents-container img {
+        min-width: 225px;
+    }
+
+    .buddy-speaking-parents-container p {
+        font-family: var(--buddy-quote-small);
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .buddy-speaking-parents-container {
+        display: flex;
+        justify-content: center;
+        /*margin-top: 10vw;*/
+        min-width: clamp(300px, 90vw, 100%);
+        aspect-ratio: 3 / 1;
+        padding: 8vw;
+    }
+
+
+    .buddy-speaking-parents-container p {
+        font-family: var(--buddy-quote-small);
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .buddy-speaking-parents-container {
+        display: flex;
+        min-width: clamp(300px, 90vw, 100%);
+        aspect-ratio: 3 / 0.8;
+        padding: 5vw 7vw;
+    }
+
+    .buddy-speaking-parents-container img {
+        min-width: 280px;
+    }
+    h1 {
+        margin-bottom: 100px;
+    }
+
+    .buddy-speaking-parents-container p {
+        font-family: var(--buddy-quote-small);
+        font-size: 20px;
+
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .buddy-speaking-parents-container {
+        display: flex;
+        justify-content: center;
+        min-width: clamp(300px, 90vw, 100%);
+        aspect-ratio: 3 / 0.8;
+    }
+
+    .buddy-speaking-parents-container img {
+        min-width: 320px;
+    }
+
+    .buddy-speaking-parents-container p {
+        font-family: var(--buddy-quote-small);
+        font-size: 25px;
+        margin: 1px;
+    }
+}
+

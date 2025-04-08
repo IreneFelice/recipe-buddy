@@ -121,7 +121,6 @@ p {
     min-width: 100vw;
     min-height: 100vh;
     height: auto;
-    max-width: 100vw;
     flex-direction: column;
     align-items: center;
     overflow: hidden;
@@ -129,7 +128,7 @@ p {
 
 .inner-page-container {
     width: 85vw;
-    max-width: 1500px;
+    max-width: 1400px;
     margin: auto;
     min-height: 100vh;
     height: auto;

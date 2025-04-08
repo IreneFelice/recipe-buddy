@@ -1,10 +1,12 @@
 import styles from './Header.module.css';
 import titleImage from '../../assets/header-title.png';
 import kitchenBlock from '../../assets/kitchenBuddy.png';
-import BuddyWelcoming from '../buddy-welcoming/BuddyWelcoming.jsx';
+import BuddySpeaking from '../buddy-speaking/BuddySpeaking.jsx';
+import {AuthContext} from '../../context/AuthContext.jsx';
+import {useContext} from 'react';
 
 function Header() {
-
+    const {isAuth} = useContext(AuthContext);
     return (
         <div className={styles['header-container']}>
             <div className={styles['header-title-img-wrapper']}>
@@ -13,7 +15,7 @@ function Header() {
             <div className={styles['header-kitchen-img-wrapper']}>
                 <img src={kitchenBlock} alt='illustration kitchen block'/>
             </div>
-            <BuddyWelcoming/>
+            <BuddySpeaking buddyVersion={isAuth ? 'egg' : 'tools' }/>
         </div>
     )
 }

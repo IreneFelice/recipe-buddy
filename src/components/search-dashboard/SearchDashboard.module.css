@@ -89,7 +89,7 @@
     margin-right: 30px;
     border-radius: 20px;
     border: solid 6px dimgrey;
-    background-color: var(--blue-grey);
+    background-color: var(--blue-grey-light);
 }
 
 .second-section button {

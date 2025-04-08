@@ -82,6 +82,7 @@ function AuthContextProvider({children}) {
             status: 'done',
         });
         localStorage.removeItem('token');
+        sessionStorage.clear();
         console.log("User logged out!");
     }
 

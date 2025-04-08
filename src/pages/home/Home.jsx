@@ -100,13 +100,11 @@ function Home() {
     return (
         <div className='inner-page-container'>
             <Header />
-            {isAuth ? (
+            {isAuth && (
                 <>
                     <SearchDashboard passUrl={setFullUrl} />
                     <SearchResults fullUrl={fullUrl} setFullUrl={setFullUrl} />
                 </>
-            ) : (
-                <h3>You need to login first.</h3>
             )}
         </div>
     );

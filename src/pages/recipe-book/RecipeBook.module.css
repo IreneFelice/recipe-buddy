@@ -39,12 +39,16 @@
 .buddy-welcoming-container {
     display: flex;
     justify-content: center;
-    margin-top: 20vw;
-    max-width: 90vw;
+    margin-top: 10vw;
+    min-width: clamp(300px, 90vw, 1000px);
+    aspect-ratio: 3 / 1.8;
+    padding: 8vw;
 }
 
+
+
 /* Mobile */
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
     .recipe-list-mobile button {
         width: 100%;
         padding: 0.5rem;
@@ -59,13 +63,6 @@
         margin: 0 auto;
     }
 
-    .buddy-welcoming-container {
-        display: flex;
-        justify-content: center;
-        margin-top: 20vw;
-        min-width: 85vw;
-        max-height: 100vh;
-    }
 
 
 }

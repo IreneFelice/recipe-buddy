@@ -31,9 +31,11 @@
 .results-outer-container h3 {
     font-family: var(--special-title);
     color: var(--darkest-blue);
+    font-size: 6vw;
     text-align: center;
-    margin: 2vw;
+    margin-top: 6vh;
 }
+
 .results-inner-container {
     display: flex;
     flex-direction: column;
@@ -122,11 +124,16 @@
     position: relative;
 }
 
-@media (min-width: 769px) {
+@media screen and (min-width: 769px) {
 
     .results-outer-container {
         display: flex;
         justify-content: revert;
+    }
+
+    .results-outer-container h3 {
+        font-size: 4vw;
+        text-align: center;
     }
 
     .results-inner-container {

@@ -4,7 +4,7 @@
     column-gap: 10px;
     padding: 6px;
     border-radius: 10px;
-    background-color: var(--blue-grey);
+    background-color: var(--blue-grey-dark);
     box-shadow: inset 3px 0 4px rgba(40, 27, 66, 0.85), inset -2px 0 2px rgba(40, 27, 66, 0.85);
 }
 
@@ -27,7 +27,7 @@
 .switch-thumb {
     height: 80%;
     aspect-ratio: 1/1;
-    background-color: var(--blue-grey);
+    background-color: var(--blue-grey-light);
     box-shadow: -2px 0 4px #21282a, 2px 0 2px rgba(40, 40, 52, 0.85), inset 3px 1px 8px #391d71;
     border-radius: 25px;
     position: absolute;
@@ -38,7 +38,7 @@
 }
 
 .isOn .switch-thumb {
-    background-color: var(--blue-grey);
+    background-color: var(--blue-grey-light);
     box-shadow: -2px 0 4px #21282a, 2px 0 2px rgba(56, 105, 121, 0.91), inset 3px 1px 8px #391d71;
     left: calc(50px - (0.8 * 24px + 2px)); /*width button - (width thumb (80% button height) + margin)  */
 }
