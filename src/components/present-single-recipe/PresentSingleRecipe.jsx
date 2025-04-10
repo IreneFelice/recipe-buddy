@@ -1,15 +1,21 @@
 import styles from '../../components/present-single-recipe/PresentSingleRecipe.module.css';
 import CustomButton from '../buttons/button/CustomButton.jsx';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useForm} from 'react-hook-form';
 
 
 function PresentSingleRecipe({singleRecipe, closeRecipe, deleteRecipe, editRecipe}) {
     const [editOpen, toggleEditOpen] = useState(false);
+    const [title, setTitle] = useState(singleRecipe?.title || "");
     const {register, handleSubmit, setValue} = useForm({
-        defaultValues: {title: "type your new recipe title"},
+        defaultValues: {title: ""},
     });
 
+    useEffect(() => {
+        setTitle(singleRecipe?.title || "");
+        setValue("title", singleRecipe?.title || "");
+        toggleEditOpen(false);
+    }, [singleRecipe, setValue]);
 
     function handleDeleteRecipe() {
         deleteRecipe(singleRecipe.rec.uri);
@@ -23,7 +29,7 @@ function PresentSingleRecipe({singleRecipe, closeRecipe, deleteRecipe, editRecip
     function handleEditSave(data) {
         const updatedRecipe = {...singleRecipe.rec, label: data.title};
         editRecipe(updatedRecipe.label, updatedRecipe.uri);
-        console.log("UPDATE SINGLE: ", updatedRecipe);
+        setTitle(data.title);
         toggleEditOpen(false);
     }
 
@@ -43,7 +49,7 @@ function PresentSingleRecipe({singleRecipe, closeRecipe, deleteRecipe, editRecip
             <div className={styles['show-recipe']}>
                 {singleRecipe && (
                     <>
-                        <h5>{singleRecipe.title}</h5>
+                        <h5>{title}</h5>
                         <img
                             src={singleRecipe.rec.image}
                             alt={singleRecipe.rec.label}
@@ -95,7 +101,10 @@ function PresentSingleRecipe({singleRecipe, closeRecipe, deleteRecipe, editRecip
                         {editOpen &&
                             <form onSubmit={handleSubmit(handleEditSave)}>
                                 <label>Title:</label>
-                                <input type="text" {...register("title")} />
+                                <input
+                                    type="text"
+                                    {...register("title")}
+                                />
                                 <CustomButton type="submit" text="Save" color="mint"/>
                             </form>
                         }

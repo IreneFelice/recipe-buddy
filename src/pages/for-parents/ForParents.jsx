@@ -1,15 +1,25 @@
 import BuddySpeaking from '../../components/buddy-speaking/BuddySpeaking.jsx';
 import styles from '../for-parents/ForParents.module.css';
+import useLoading from '../../hooks/useLoading.jsx';
 
 function ForParents() {
+    const isLoading = useLoading();
+
     return (
-            <div className='inner-page-container'>
-                <div className={styles['top-text']}>
+        <>
+            {isLoading &&
+                <div className={styles['loading']}>
+                    <p>Loading...</p>
+                </div>
+            }
+                <div className={isLoading ? styles['page-loading'] : styles['page-ready']}>
+                    <div className='inner-page-container'>
+                <section className={styles['top-text']}>
                 <h2>Information for parents</h2>
                 <p>*Found recipes are situated on external websites,
                 therefor some parental supervision is recommended.</p>
-                </div>
-                <div className={styles['buddy-speaking-parents-container']}>
+                </section>
+                <section className={styles['buddy-speaking-parents-container']}>
                 <BuddySpeaking
                     alternativeText={`
                     \nHello there!
@@ -22,10 +32,10 @@ function ForParents() {
                     buddyVersion='cake'
                     login={false}
                 />
+                </section>
+                    </div>
                 </div>
-
-
-            </div>
+</>
     )
 }
 

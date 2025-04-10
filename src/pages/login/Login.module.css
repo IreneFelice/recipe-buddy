@@ -1,6 +1,5 @@
 .login-outer-container{
     display: flex;
-    /*border: solid 2px deeppink;*/
     width: 50vw;
     justify-content: space-between;
     padding-left: 3rem;
@@ -8,30 +7,37 @@
 
 .new-here-button-container{
     display: flex;
-    /*border: solid 2px lightseagreen;*/
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-width: 20vw;
-}
-
-.new-here-button{
-    width: auto;
+    min-height: 10vw;
+    margin-top: 30px;
 }
 
 .login-container{
     display: flex;
     flex-direction: column;
+    min-width: 100%;
+    align-items: center;
     gap: 3rem;
     padding-top: 3rem;
-    /*border: solid 2px darkorange;*/
+}
+
+.login-container button{
+    margin-top: 30px;
 }
 
 .register-container{
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 3rem;
-    padding-top: 3rem;
+    min-width: 100%;
+    margin-bottom: 50px;
+}
+
+.register-container button {
+    margin-top: 30px;
 }
 
 .error{

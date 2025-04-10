@@ -1,3 +1,29 @@
+/*Loading*/
+.loading{
+    display: flex;
+    width: 100%;
+    min-height: 60vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading p{
+    font-size: 50px;
+    font-family: var(--special-title);
+    color: black;
+}
+
+.page-ready {
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+}
+
+.page-loading {
+    opacity: 0;
+}
+/**/
+
+
 .top-text{
     display: flex;
     flex-direction: column;
@@ -10,7 +36,6 @@
     width: 50vw;
 }
 
-
 .buddy-speaking-parents-container {
     display: flex;
     justify-content: center;
@@ -20,7 +45,6 @@
     padding-top: 8vw;
 }
 
-
 .buddy-speaking-parents-container p {
     font-family: var(--buddy-quote-small);
 }
@@ -28,7 +52,6 @@
 .buddy-speaking-parents-container img {
     min-width: 140px;
 }
-
 
 .buddy-speaking-parents-container button {
     visibility: hidden;

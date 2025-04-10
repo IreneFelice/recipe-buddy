@@ -28,6 +28,7 @@ function LoginForm({errorMessage}) {
             console.log("User is logged in");
         } catch (error) {
             console.error("Login failed", error);
+            errorMessage("Uh-oh! The name or password you typed, does not work!");
             logout();
         }
     }

@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
 import styles from './Form.module.css';
+import CustomButton from '../../buttons/button/CustomButton.jsx';
 
 function Form({ fields, onSubmit, defaultValues = {}, buttonLabel = 'Submit'}) {
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -20,7 +21,8 @@ function Form({ fields, onSubmit, defaultValues = {}, buttonLabel = 'Submit'}) {
                     {errors[name] && <p className={styles['error-message']}>{errors[name].message}</p>}
                 </div>
             ))}
-            <button type='submit' className={styles['form-button']}>{buttonLabel}</button>
+            <CustomButton type='submit' color='mint' text={buttonLabel} className={styles['form-button']}/>
+
         </form>
     );
 }
