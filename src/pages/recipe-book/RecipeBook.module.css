@@ -1,7 +1,6 @@
 
 .book-outer-container {
     min-width: 100%;
-    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -14,16 +13,17 @@
     left: 0;
     display: flex;
     width: 100%;
+    height: 100%;
 }
 
 .book-left-page, .book-right-page {
-    padding: 7%;
+    padding: 3%;
     width: 90%;
     margin: 0 auto;
 }
 
-.book-left-page, .book-right-page {
-
+.book-left-page{
+    padding-left: 6%;
 }
 
 .close-btn {
@@ -62,7 +62,5 @@
         width: 90%;
         margin: 0 auto;
     }
-
-
 
 }

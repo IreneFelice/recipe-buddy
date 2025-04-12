@@ -20,7 +20,7 @@ function App() {
                 <Route path='/for-parents' element={<ForParents/>}/>
             </Routes>
 
-            <Footer/>
+            {/*<Footer/>*/}
         </div>
         </>
     )

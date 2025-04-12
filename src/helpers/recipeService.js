@@ -12,7 +12,7 @@ async function storeToUserInfo (userRequest, updatedRecipes, token) {
                     Authorization: `Bearer ${token}`,
                 }
             });
-        return "Saved!";
+        // updateBookRecipes(updatedRecipes);
     } catch (error) {
         console.error("saveRecipes failed", error);
         return "Sorry, saving recipe failed.";

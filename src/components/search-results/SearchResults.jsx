@@ -1,5 +1,5 @@
 import styles from './SearchResults.module.css';
-import {useContext, useState, useEffect} from 'react';
+import {useContext, useState, useEffect, useRef} from 'react';
 import axios from 'axios';
 import {AuthContext} from '../../context/AuthContext.jsx';
 import CustomButton from '../buttons/button/CustomButton.jsx';
@@ -7,17 +7,10 @@ import IconSaved from '../../assets/icon-saved.svg';
 import {useNavigate} from 'react-router-dom';
 import storeToUserInfo from '../../helpers/recipeService.js';
 
-//\ 1. get max 6 search results
-//\ 2. save results to session storage
-//\ 3. if no results, show alternative text
-// 4. monitor how many recipes already saved
-// 5. show found search results
-// 6. save recipe to backend
-// 7. check if saved before, don't add if so
-
 function SearchResults({fullUrl, setFullUrl}) {
     const {userRequest} = useContext(AuthContext);
     const navigate = useNavigate();
+    const scrollRef = useRef(null);
 
     /** 6 search results temporarily saved in sessionStorage: **/
     const [searchResults, setSearchResults] = useState(() => {
@@ -25,14 +18,15 @@ function SearchResults({fullUrl, setFullUrl}) {
         return savedResults ? JSON.parse(savedResults) : [];
     });
 
-    /***** recipes saved in Backend, state gets loaded at mounting phase: **/
-    // const [isInitialLoad, setIsInitialLoad] = useState(true);
-    const [savedBookRecipes, setSavedBookRecipes] = useState([]);
+    /***** recipes saved in Backend (or sessionStorage) state gets loaded at mounting phase: **/
+    const [savedBookRecipes, setSavedBookRecipes] = useState(() => {
+        const cached = sessionStorage.getItem('savedBookRecipes');
+        return cached ? JSON.parse(cached) : [];
+    });
 
     /******* checks for UI ********/
     const [zeroFound, toggleZeroFound] = useState(false);
     const maxTotal = 9;
-    const [maxNumberSaved, toggleMaxNumberSaved] = useState(false);
 
     /****** error (and such) handling ********/
     const [error, setError] = useState('');
@@ -43,12 +37,8 @@ function SearchResults({fullUrl, setFullUrl}) {
 
     /*** Get Backend recipes at mounting ***/
     useEffect(() => {
+        if (savedBookRecipes.length > 0) return;
         const getSavedBookRecipes = async () => {
-            const cached = sessionStorage.getItem('savedBookRecipes');
-            if (cached) {
-                setSavedBookRecipes(JSON.parse(cached));
-                return;
-            }
 
             const token = localStorage.getItem('token');
             if (!token) return;
@@ -68,10 +58,6 @@ function SearchResults({fullUrl, setFullUrl}) {
         void getSavedBookRecipes();
     }, []);
 
-    /*** check max number saved at refresh ***/
-    useEffect(() => {
-        toggleMaxNumberSaved((maxTotal - savedBookRecipes.length) <= 1);
-    }, [savedBookRecipes]);
 
     /*** get max 6 new search results, when fullUrl received ***/
     useEffect(() => {
@@ -87,6 +73,10 @@ function SearchResults({fullUrl, setFullUrl}) {
             setIsLoading(false);
         }, 5000);
 
+        if (scrollRef.current) {
+            scrollRef.current.scrollIntoView({behavior: 'smooth'});
+        }
+        /*** NEW RECIPES FROM API *****************************************************************/
         async function getRecipes() {
             try {
                 setError(''); //reset error
@@ -97,7 +87,7 @@ function SearchResults({fullUrl, setFullUrl}) {
 
                 // pick only 6 results:
                 const slicedRecipes = recipes.slice(0, 6);
-
+                /*** NEW RECIPES FROM API *****************************************************************/
                 setSearchResults(slicedRecipes);
                 sessionStorage.setItem('searchResults', JSON.stringify(slicedRecipes));
 
@@ -114,6 +104,7 @@ function SearchResults({fullUrl, setFullUrl}) {
             }
         }
 
+        /*** NEW RECIPES FROM API *****************************************************************/
         void getRecipes();
         return () => {
             controller.abort();
@@ -124,19 +115,20 @@ function SearchResults({fullUrl, setFullUrl}) {
 
     function handleSaveRecipe(newRecipe) {
         /** check if new recipe already exists in saved list **/
+        console.log("savedBookRecipes: ", savedBookRecipes, "new Recipe: ", newRecipe);
         const recipeExists = [...savedBookRecipes]
             .some(recipe => recipe.uri === newRecipe.uri);
         if (recipeExists) {
             alert("Recipe already saved, not adding");
             return;
         }
-        toggleMaxNumberSaved((maxTotal - savedBookRecipes.length) <= 2);
 
         /** add new recipe to state list from backend **/
         const updatedRecipes = [...savedBookRecipes, newRecipe];
-
+        // toggleMaxNumberSaved((maxTotal - updatedRecipes.length) <= 1);
         /** add the new recipe to list in state **/
         setSavedBookRecipes(prev => [...prev, newRecipe]);
+        sessionStorage.setItem('savedBookRecipes', JSON.stringify(updatedRecipes));
 
         /*** Save updated state list, including newRecipe, to backend ***/
         const token = localStorage.getItem('token');
@@ -170,7 +162,7 @@ function SearchResults({fullUrl, setFullUrl}) {
 
 
     return (
-        <div className={styles['results-outer-container']}>
+        <div className={styles['results-outer-container']} ref={scrollRef}>
             <section>
                 {error && <p>{error}</p>}
                 {isLoading && <p>Loading...</p>}
@@ -208,9 +200,9 @@ function SearchResults({fullUrl, setFullUrl}) {
                                         </div>
                                         <CustomButton
                                             text={savedBookRecipes.some(savedRecipe => savedRecipe.uri === recipe.uri) ? "Saved!" : "Save Recipe"}
-                                            color={savedBookRecipes.some(savedRecipe => savedRecipe.uri === recipe.uri) || maxNumberSaved ? "grey" : "mint"}
+                                            color={savedBookRecipes.some(savedRecipe => savedRecipe.uri === recipe.uri) || ((maxTotal - savedBookRecipes.length) === 0) ? "grey" : "mint"}
                                             onClick={() => handleSaveRecipe({title: recipe.label, uri: recipe.uri})}
-                                            disabled={savedBookRecipes.some(savedRecipe => savedRecipe.uri === recipe.uri) || maxNumberSaved}
+                                            disabled={savedBookRecipes.some(savedRecipe => savedRecipe.uri === recipe.uri) || (maxTotal - savedBookRecipes.length) === 0}
                                         />
                                     </li>
                                 ))}
@@ -220,7 +212,7 @@ function SearchResults({fullUrl, setFullUrl}) {
                         <section className={styles['manage-results-container']}>
                             <p>You have <strong>{savedBookRecipes.length}</strong> recipes saved in your Recipe Book!
                             </p>
-                            {maxNumberSaved ? (
+                            {(maxTotal - savedBookRecipes.length) === 0 ? (
                                 <p><strong>Your Recipe Book is full. Delete old recipes first.</strong></p>
                             ) : (
                                 <>

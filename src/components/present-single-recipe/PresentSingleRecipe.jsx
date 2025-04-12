@@ -6,16 +6,18 @@ import {useForm} from 'react-hook-form';
 
 function PresentSingleRecipe({singleRecipe, closeRecipe, deleteRecipe, editRecipe}) {
     const [editOpen, toggleEditOpen] = useState(false);
-    const [title, setTitle] = useState(singleRecipe?.title || "");
+    const [title, setTitle] = useState(singleRecipe?.title || '');
     const {register, handleSubmit, setValue} = useForm({
-        defaultValues: {title: ""},
+        defaultValues: {title: ''},
     });
 
     useEffect(() => {
-        setTitle(singleRecipe?.title || "");
-        setValue("title", singleRecipe?.title || "");
+        setTitle(singleRecipe?.title || '');
+        setValue('title', singleRecipe?.title || '');
         toggleEditOpen(false);
     }, [singleRecipe, setValue]);
+
+    console.log("single recipe ingredients:", singleRecipe.rec.ingredientLines);
 
     function handleDeleteRecipe() {
         deleteRecipe(singleRecipe.rec.uri);
@@ -38,7 +40,6 @@ function PresentSingleRecipe({singleRecipe, closeRecipe, deleteRecipe, editRecip
 
     }
 
-
     function handleCloseRecipe() {
         closeRecipe();
     }
@@ -46,72 +47,98 @@ function PresentSingleRecipe({singleRecipe, closeRecipe, deleteRecipe, editRecip
 
     return (
         <>
-            <div className={styles['show-recipe']}>
-                {singleRecipe && (
+            {singleRecipe && <div className={styles['show-recipe-outer-container']}>
+
                     <>
                         <h5>{title}</h5>
-                        <img
-                            src={singleRecipe.rec.image}
-                            alt={singleRecipe.rec.label}
-                        />
-                        <p>
-                            <a
-                                href={singleRecipe.rec.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                Visit Recipe website
-                            </a>
-                        </p>
+                        <div className={styles['image-container']}>
+                            <img
+                                src={singleRecipe.rec.image}
+                                alt={singleRecipe.rec.label}
+                            />
+                        </div>
+                        {!editOpen && (
+                            <>
+                                <p>
+                                    <a
+                                        href={singleRecipe.rec.url}
+                                        target='_blank'
+                                        rel='noopener noreferrer'
+                                    >
+                                        Visit Recipe website
+                                    </a>
+                                </p>
+                                <ul className={styles['ingredients-list']}>
+                                    {singleRecipe.rec.ingredientLines.map((ingredient, index) => (
+
+                                        <li key={index}>
+                                            {ingredient}
+                                        </li>
+
+                                    ))}
+                                </ul>
+                            </>)}
 
                         <section className={styles['show-recipe-button-container']}>
                             {!editOpen && (
-                                <>
+                                <div className={styles['show-recipe-button-container']}>
                                     <CustomButton
-                                        type="button"
-                                        text="close"
-                                        color="blue"
+                                        type='button'
+                                        text='close'
+                                        color='blue'
                                         onClick={handleCloseRecipe}
                                     />
                                     <CustomButton
-                                        type="button"
-                                        text="Edit"
-                                        color="blue"
+                                        type='button'
+                                        text='edit'
+                                        color='blue'
                                         onClick={handleEditRecipe}
                                     />
-                                </>)}
-
-                            {editOpen && (
-                                <>
-                                    <CustomButton
-                                        type="button"
-                                        text="cancel"
-                                        color="blue"
-                                        onClick={handleCancelEdit}
-                                    />
-                                    <CustomButton
-                                        type="button"
-                                        text="Erase from book"
-                                        color="red"
-                                        onClick={handleDeleteRecipe}
-                                    />
-                                </>)}
+                                </div>)}
                         </section>
 
-                        {editOpen &&
-                            <form onSubmit={handleSubmit(handleEditSave)}>
-                                <label>Title:</label>
+                        {editOpen && (
+                            <section className={styles['edit-open-container']}>
+
+                                <form className={styles['edit-recipe-form']} onSubmit={handleSubmit(handleEditSave)}>
+                                <span>
+                                    <label>Edit title: </label>
                                 <input
-                                    type="text"
-                                    {...register("title")}
+                                    type='text'
+                                    {...register('title')}
                                 />
-                                <CustomButton type="submit" text="Save" color="mint"/>
-                            </form>
-                        }
+                                </span>
+
+                                    <CustomButton
+                                        type='button'
+                                        text='cancel'
+                                        color='blue'
+                                        onClick={handleCancelEdit}
+                                    />
+
+                                    <div className={styles['edit-button-container']}>
+                                        <CustomButton
+                                            type='button'
+                                            text='delete recipe'
+                                            color='red'
+                                            onClick={handleDeleteRecipe}
+                                        />
+
+                                        <CustomButton type='submit' text='save' color='mint'/>
+
+
+                                    </div>
+                                </form>
+
+
+
+                            </section>
+                        )}
                     </>
-                )}</div>
+
+            </div> }
         </>
     );
 }
 
-    export default PresentSingleRecipe;
+export default PresentSingleRecipe;

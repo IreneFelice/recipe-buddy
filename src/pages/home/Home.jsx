@@ -11,14 +11,6 @@ function Home() {
     const [fullUrl, setFullUrl] = useState('');
     const isLoading = useLoading();
 
-    // useEffect(() => {
-    //     const timer = setTimeout(() => {
-    //         setIsLoading(false);
-    //     }, 500);
-    //
-    //     return () => clearTimeout(timer);
-    // }, []);
-
     return (
         <div className={'inner-page-container'}>
             {isLoading &&

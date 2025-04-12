@@ -7,7 +7,6 @@ import PresentSingleRecipe from '../../components/present-single-recipe/PresentS
 import PresentRecipeList from '../../components/present-recipe-list/PresentRecipeList.jsx';
 import bookOpen from '../../assets/old-book-open.png';
 import emptyPage from '../../assets/empty-paper.png';
-// import BuddyWelcoming from '../../components/buddy-welcoming/BuddyWelcoming.jsx';
 import BuddySpeaking from '../../components/buddy-speaking/BuddySpeaking.jsx';
 
 function RecipeBook() {
@@ -15,6 +14,7 @@ function RecipeBook() {
     const [savedRecipes, setSavedRecipes] = useState([]);
     const [singleSelected, setSingleSelected] = useState('');
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
 
     // single or double page presentation
     useEffect(() => {
@@ -63,6 +63,7 @@ function RecipeBook() {
                             Authorization: `Bearer ${token}`,
                         }
                     });
+                sessionStorage.setItem('savedBookRecipes', JSON.stringify(updatedList));
             } catch (error) {
                 console.error("saveRecipes failed", error);
                 setSavedRecipes(oldList); //if update to backend failed, set state back to previous

@@ -16,6 +16,7 @@ function RegisterForm({errorMessage, newName}) {
                     'username': registerData.username,
                     'email': registerData.email,
                     'password': registerData.password,
+                    'info': 'string',
                 },
                 {
                     headers: {

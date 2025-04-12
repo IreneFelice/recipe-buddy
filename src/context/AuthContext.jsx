@@ -41,7 +41,7 @@ function AuthContextProvider({children}) {
             }
         };
 
-        validateToken();
+        void validateToken();
     }, []);
 
     // LOGIN //
