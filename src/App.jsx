@@ -7,21 +7,20 @@ import RecipeBook from '/src/pages/recipe-book/RecipeBook.jsx';
 import ForParents from '/src/pages/for-parents/ForParents.jsx';
 import './index.css';
 
-
 function App() {
-    return ( <>
-        <div className='outer-app-container'>
-            <NavBar/>
+    return (<>
+            <div className='outer-app-container'>
+                <NavBar/>
 
                 <Routes>
-                <Route path='/' element={<Home/>}/>
-                <Route path='/recipe-book' element={<RecipeBook/>}/>
-                <Route path='/login' element={<LoginPage/>}/>
-                <Route path='/for-parents' element={<ForParents/>}/>
-            </Routes>
+                    <Route path='/' element={<Home/>}/>
+                    <Route path='/recipe-book' element={<RecipeBook/>}/>
+                    <Route path='/login' element={<LoginPage/>}/>
+                    <Route path='/for-parents' element={<ForParents/>}/>
+                </Routes>
 
-            {/*<Footer/>*/}
-        </div>
+                <Footer/>
+            </div>
         </>
     )
 }

@@ -1,4 +1,5 @@
 import {AuthContext} from '../../context/AuthContext.jsx';
+import {SavedRecipesContext} from '../../context/SavedRecipesContext.jsx';
 import styles from './RecipeBook.module.css';
 import createQuerySingleRecipe from '../../helpers/createQuerySingleRecipe.js';
 import {useContext, useEffect, useState} from 'react';
@@ -11,7 +12,8 @@ import BuddySpeaking from '../../components/buddy-speaking/BuddySpeaking.jsx';
 
 function RecipeBook() {
     const {auth, isAuth, userRequest} = useContext(AuthContext);
-    const [savedRecipes, setSavedRecipes] = useState([]);
+    const {savedRecipes, saveRecipe} = useContext(SavedRecipesContext);
+    // const [savedRecipes, setSavedRecipes] = useState([]);
     const [singleSelected, setSingleSelected] = useState('');
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
@@ -38,7 +40,8 @@ function RecipeBook() {
                         }
                     });
                     if (response.data.info) {
-                        setSavedRecipes(JSON.parse(response.data.info));
+                        // setSavedRecipes(JSON.parse(response.data.info));
+                        saveRecipe(JSON.parse(response.data.info));
                         console.log("savedRecipes: ", JSON.parse(response.data.info));
                     }
                 } catch (error) {
