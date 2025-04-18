@@ -1,10 +1,12 @@
 import styles from '../../components/present-single-recipe/PresentSingleRecipe.module.css';
 import CustomButton from '../buttons/button/CustomButton.jsx';
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {useForm} from 'react-hook-form';
+import {SavedRecipesContext} from '../../context/SavedRecipesContext.jsx';
 
 
-function PresentSingleRecipe({singleRecipe, closeRecipe, deleteRecipe, editRecipe}) {
+function PresentSingleRecipe({singleRecipe, closeRecipe}) {
+    const {updateRecipe, removeRecipe} = useContext(SavedRecipesContext);
     const [editOpen, toggleEditOpen] = useState(false);
     const [title, setTitle] = useState(singleRecipe?.title || '');
     const {register, handleSubmit, setValue} = useForm({
@@ -17,10 +19,8 @@ function PresentSingleRecipe({singleRecipe, closeRecipe, deleteRecipe, editRecip
         toggleEditOpen(false);
     }, [singleRecipe, setValue]);
 
-    console.log("single recipe ingredients:", singleRecipe.rec.ingredientLines);
-
     function handleDeleteRecipe() {
-        deleteRecipe(singleRecipe.rec.uri);
+        removeRecipe(singleRecipe.rec.uri);
         closeRecipe();
     }
 
@@ -28,16 +28,16 @@ function PresentSingleRecipe({singleRecipe, closeRecipe, deleteRecipe, editRecip
         toggleEditOpen(true);
     }
 
+    // save custom title to label-key in backend list
     function handleEditSave(data) {
         const updatedRecipe = {...singleRecipe.rec, label: data.title};
-        editRecipe(updatedRecipe.label, updatedRecipe.uri);
+        updateRecipe(updatedRecipe.label, updatedRecipe.uri);
         setTitle(data.title);
         toggleEditOpen(false);
     }
 
     function handleCancelEdit() {
         toggleEditOpen(false);
-
     }
 
     function handleCloseRecipe() {
@@ -123,14 +123,13 @@ function PresentSingleRecipe({singleRecipe, closeRecipe, deleteRecipe, editRecip
                                             color='red'
                                             onClick={handleDeleteRecipe}
                                         />
-
-                                        <CustomButton type='submit' text='save' color='mint'/>
-
-
+                                        <CustomButton
+                                            type='submit'
+                                            text='save'
+                                            color='mint'
+                                        />
                                     </div>
                                 </form>
-
-
 
                             </section>
                         )}

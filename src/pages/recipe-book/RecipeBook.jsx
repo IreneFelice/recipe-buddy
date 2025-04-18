@@ -1,5 +1,4 @@
 import {AuthContext} from '../../context/AuthContext.jsx';
-import {SavedRecipesContext} from '../../context/SavedRecipesContext.jsx';
 import styles from './RecipeBook.module.css';
 import createQuerySingleRecipe from '../../helpers/createQuerySingleRecipe.js';
 import {useContext, useEffect, useState} from 'react';
@@ -11,12 +10,9 @@ import emptyPage from '../../assets/empty-paper.png';
 import BuddySpeaking from '../../components/buddy-speaking/BuddySpeaking.jsx';
 
 function RecipeBook() {
-    const {auth, isAuth, userRequest} = useContext(AuthContext);
-    const {savedRecipes, saveRecipe} = useContext(SavedRecipesContext);
-    // const [savedRecipes, setSavedRecipes] = useState([]);
+    const {auth, isAuth} = useContext(AuthContext);
     const [singleSelected, setSingleSelected] = useState('');
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-
 
     // single or double page presentation
     useEffect(() => {
@@ -27,52 +23,6 @@ function RecipeBook() {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    //Get saved recipes from backend
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            const getSavedRecipes = async () => {
-                try {
-                    const response = await axios.get(userRequest, {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${token}`,
-                        }
-                    });
-                    if (response.data.info) {
-                        // setSavedRecipes(JSON.parse(response.data.info));
-                        saveRecipe(JSON.parse(response.data.info));
-                        console.log("savedRecipes: ", JSON.parse(response.data.info));
-                    }
-                } catch (error) {
-                    console.error("Get saved recipes failed", error);
-                }
-            };
-            void getSavedRecipes();
-        }
-    }, []);
-
-    //update savedRecipes
-    async function updateRecipes(updatedList, oldList) {
-        const token = localStorage.getItem('token');
-        if (token) {
-            try {
-                await axios.put(userRequest,
-                    {
-                        'info': JSON.stringify(updatedList),
-                    }, {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${token}`,
-                        }
-                    });
-                sessionStorage.setItem('savedBookRecipes', JSON.stringify(updatedList));
-            } catch (error) {
-                console.error("saveRecipes failed", error);
-                setSavedRecipes(oldList); //if update to backend failed, set state back to previous
-            }
-        }
-    }
 
     function handleTitleClick(uri, title) {
         const requestEndPoint = createQuerySingleRecipe(uri);
@@ -80,6 +30,7 @@ function RecipeBook() {
             try {
                 const response = await axios.get(requestEndPoint);
                 if (response) {
+                    //make custom recipe object with separate 'title' key, for editing option
                     setSingleSelected({rec: response.data.hits[0].recipe, title: title});
                 }
             } catch (error) {
@@ -89,25 +40,8 @@ function RecipeBook() {
         void retrieveSingleRecipe();
     }
 
-    function deleteRecipe(uri) {
-        const oldList = savedRecipes;
-        const updatedList = savedRecipes.filter(recipe => recipe.uri !== uri);
-        setSavedRecipes(updatedList);
-        void updateRecipes(updatedList, oldList);
-        console.log("delete clicked. Uri: ", uri, "updated list: ", updatedList);
-    }
 
-    function editRecipe(newLabel, editUri){
-        console.log("properties: label: ", newLabel, ", uri: ", editUri);
-        const oldList = savedRecipes;
-        console.log("old list: ", oldList);
-        const updatedList = savedRecipes.map(recipe =>
-            recipe.uri === editUri ? { ...recipe, title: newLabel } : recipe
-        );
-        console.log("updated list: ", updatedList);
-        setSavedRecipes(updatedList);
-        void updateRecipes(updatedList, oldList);
-    }
+
 
     return (
         <div className='inner-page-container'>
@@ -128,15 +62,12 @@ function RecipeBook() {
                                         <PresentSingleRecipe
                                             singleRecipe={singleSelected}
                                             closeRecipe={setSingleSelected}
-                                            editRecipe={editRecipe}
-                                            deleteRecipe={deleteRecipe}
                                         />
                                     </section>
                                 ) : (
                                     <section className={styles['book-left-page']}>
                                         <PresentRecipeList
                                             handleTitleClick={handleTitleClick}
-                                            savedRecipes={savedRecipes}
                                         />
                                     </section>
                                 )
@@ -146,7 +77,6 @@ function RecipeBook() {
                                     <section className={styles['book-left-page']}>
                                         <PresentRecipeList
                                             handleTitleClick={handleTitleClick}
-                                            savedRecipes={savedRecipes}
                                         />
                                     </section>
                                     <section className={styles['book-right-page']}>
@@ -154,8 +84,6 @@ function RecipeBook() {
                                             <PresentSingleRecipe
                                                 singleRecipe={singleSelected}
                                                 closeRecipe={setSingleSelected}
-                                                editRecipe={editRecipe}
-                                                deleteRecipe={deleteRecipe}
                                             />
                                         ) : (
                                             <p>Click on a recipe to view</p>

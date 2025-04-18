@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from 'react';
+import {useContext, useState} from 'react';
 import {AuthContext} from '../../context/AuthContext.jsx';
 import styles from './Home.module.css';
 import Header from '../../components/header/Header.jsx';
@@ -15,18 +15,18 @@ function Home() {
         <div className={'inner-page-container'}>
             {isLoading &&
                 <div className={styles['loading']}>
-                <p>Loading...</p>
+                    <p>Loading...</p>
                 </div>
             }
-                    <div className={isLoading ? styles['page-loading'] : styles['page-ready']}>
-                        <Header/>
-                        {isAuth && (
-                            <>
-                                <SearchDashboard passUrl={setFullUrl}/>
-                                <SearchResults fullUrl={fullUrl} setFullUrl={setFullUrl}/>
-                            </>
-                        )}
-                    </div>
+            <div className={isLoading ? styles['page-loading'] : styles['page-ready']}>
+                <Header/>
+                {isAuth && (
+                    <>
+                        <SearchDashboard passUrl={setFullUrl}/>
+                        <SearchResults fullUrl={fullUrl} setFullUrl={setFullUrl}/>
+                    </>
+                )}
+            </div>
         </div>
     );
 }

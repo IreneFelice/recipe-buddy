@@ -1,10 +1,13 @@
 import styles from './PresentRecipeList.module.css';
+import {SavedRecipesContext} from '../../context/SavedRecipesContext.jsx';
+import {useContext} from 'react';
 
-function PresentRecipeList({handleTitleClick, savedRecipes}) {
+function PresentRecipeList({handleTitleClick}) {
+const {savedBookRecipes} = useContext(SavedRecipesContext);
 
     return(
     <ul>
-        {savedRecipes.map((recipe) => (
+        {savedBookRecipes.map((recipe) => (
             <li key={recipe.uri} className={styles['title-click']}>
                 <button type="button"
                         onClick={() => handleTitleClick(recipe.uri, recipe.title)}>
@@ -13,7 +16,7 @@ function PresentRecipeList({handleTitleClick, savedRecipes}) {
             </li>
         ))}
     </ul>
-    )
+)
 }
 
 export default PresentRecipeList;
