@@ -1,11 +1,16 @@
 .switch-container {
     display: flex;
-    align-items: baseline;
+    /*align-items: baseline;*/
     column-gap: 10px;
-    padding: 6px;
+    padding: 10px;
     border-radius: 10px;
     background-color: var(--blue-grey-dark);
     box-shadow: inset 3px 0 4px rgba(40, 27, 66, 0.85), inset -2px 0 2px rgba(40, 27, 66, 0.85);
+}
+
+.switch-container p {
+    font-family: var(--buddy-quote-small);
+    font-weight: bold;
 }
 
 .switch-button {
@@ -32,7 +37,6 @@
     border-radius: 25px;
     position: absolute;
     left: 2px; /* mimic margin-left */
-    /*top: 2px; !* mimic margin-top *!*/
     top: 50%; /* move down with top edged to center height of button */
     transform: translateY(-50%); /* move up with 50% of own height */
 }

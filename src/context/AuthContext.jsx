@@ -36,7 +36,7 @@ function AuthContextProvider({children}) {
                     console.error("Token could not be validated:", error);
                     logout();
                 }
-            } else {
+            } else { // no token
                 logout();
             }
         };

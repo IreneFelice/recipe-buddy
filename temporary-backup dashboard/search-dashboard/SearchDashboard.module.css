@@ -1,0 +1,289 @@
+/*MOBILE*/
+.dashboard-outer-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: clamp(500px, 80vw, 1600px);
+    top: -5vw;
+    position: relative;
+}
+
+.dashboard-border-image-container {
+    display: flex;
+    rotate: 90deg;
+    /*max-width: 50%;*/
+    border: greenyellow solid 2px;
+}
+
+.dashboard-border-image-container img{
+    max-height: 100%;
+    min-width: 100%;
+    display: block;
+}
+
+.dashboard-outer-container h2 {
+    font-family: var(--special-title);
+    font-size: 4vw;
+    margin-top: 3vw;
+    rotate: -2deg;
+}
+/*MOBILE*/
+.input-outer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    /*margin: auto;*/
+    width: clamp(500px, 70vw, 1200px);
+    min-height: 100%;
+    max-height: 100%;
+    border: var(--purple-accent), 2px, solid;
+}
+
+.input-inner-container {
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    margin-top: 15%;
+    min-width: 100%;
+    max-width: 1200px;
+    min-height: 100%;
+    max-height: 100%;
+    border: #ffa1c9 2px solid;
+}
+/*MOBILE*/
+.dashboard-inner-container-1 {
+    display: flex;
+    flex-grow: 1;
+    min-width: 100%;
+    max-width: 100%;
+    justify-content: space-between;
+}
+
+.dashboard-inner-container-2 {
+    display: flex;
+    flex-grow: 4;
+    max-width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+/*MOBILE*/
+.dashboard-inner-container-3 {
+    display: flex;
+    flex-grow: 2;
+    max-width: 100%;
+}
+
+.dashboard-inner-container-4 {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    max-width: 100%;
+}
+/*MOBILE*/
+.first-section {
+    display: flex;
+    font-size: 1.7vw;
+    max-width: 90%;
+    border-radius: 20px;
+    border: solid 6px dimgrey;
+    background-color: var(--blue-grey-light);
+    margin: 1.5vw 6vw;
+}
+
+.second-section {
+    display: flex;
+    flex-grow: 1;
+    width: 23vw;
+    max-width: 100%;
+    max-height: 80%;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 30px;
+    border-radius: 20px;
+    border: solid 6px dimgrey;
+    background-color: var(--blue-grey-light);
+}
+/*MOBILE*/
+.second-section button {
+    max-width: 300px;
+    max-height: 10px;
+}
+
+.third-section {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+}
+/*MOBILE*/
+.fourth-section {
+    display: flex;
+    border: dashed 3px white;
+}
+
+.sixth-section {
+    flex-grow: 2;
+}
+/*MOBILE*/
+/****** button Search Recipes ******/
+.button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    /*border: solid 4px orange;*/
+}
+
+.button-container button {
+    position: absolute;
+    bottom: 2.7vw;
+    width: auto;
+    padding: 0.5vw 1vw;
+    font-size: clamp(1rem, 1.8vw, 2rem);
+    max-height: 50px;
+    overflow: visible;
+    white-space: nowrap;
+}
+
+@media screen and (min-width: 992px) {
+
+    .dashboard-outer-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: clamp(500px, 80vw, 1600px);
+        top: -5vw;
+        position: relative;
+    }
+
+    .dashboard-outer-container h2 {
+        font-family: var(--special-title);
+        font-size: 4vw;
+        margin-top: 3vw;
+        rotate: -2deg;
+    }
+
+    .dashboard-border-image-container {
+        border: #fb15ff solid 2px;
+        rotate: 0deg;
+    }
+
+    .input-outer-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        /*margin: auto;*/
+        width: clamp(500px, 70vw, 1200px);
+        min-height: 100%;
+        max-height: 100%;
+    }
+
+    .input-inner-container {
+        display: flex;
+        flex-direction: column;
+        top: 0;
+        margin-top: 15%;
+        min-width: 100%;
+        max-width: 1200px;
+        min-height: 100%;
+        max-height: 100%;
+    }
+
+    .dashboard-inner-container-1 {
+        display: flex;
+        flex-grow: 1;
+        min-width: 100%;
+        max-width: 100%;
+        justify-content: space-between;
+    }
+
+    .dashboard-inner-container-2 {
+        display: flex;
+        flex-grow: 4;
+        max-width: 100%;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .dashboard-inner-container-3 {
+        display: flex;
+        flex-grow: 2;
+        max-width: 100%;
+    }
+
+    .dashboard-inner-container-4 {
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+        max-width: 100%;
+    }
+
+    .first-section {
+        display: flex;
+        font-size: 1.7vw;
+        max-width: 90%;
+        border-radius: 20px;
+        border: solid 6px dimgrey;
+        background-color: var(--blue-grey-light);
+        margin: 1.5vw 6vw;
+    }
+
+    .second-section {
+        display: flex;
+        flex-grow: 1;
+        width: 23vw;
+        max-width: 100%;
+        max-height: 80%;
+        flex-direction: column;
+        align-items: center;
+        margin-right: 30px;
+        border-radius: 20px;
+        border: solid 6px dimgrey;
+        background-color: var(--blue-grey-light);
+    }
+
+    .second-section button {
+        max-width: 300px;
+        max-height: 10px;
+    }
+
+    .third-section {
+        display: flex;
+        flex-direction: column;
+        row-gap: 15px;
+    }
+
+    .fourth-section {
+        display: flex;
+        border: dashed 3px white;
+    }
+
+    .sixth-section {
+        flex-grow: 2;
+    }
+
+    /****** button Search Recipes ******/
+    .button-container {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        /*border: solid 4px orange;*/
+    }
+
+    .button-container button {
+        position: absolute;
+        bottom: 2.7vw;
+        width: auto;
+        padding: 0.5vw 1vw;
+        font-size: clamp(1rem, 1.8vw, 2rem);
+        max-height: 50px;
+        overflow: visible;
+        white-space: nowrap;
+    }
+
+}
+

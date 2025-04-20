@@ -135,6 +135,7 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
+    border: greenyellow solid 2px;
 }
 
 
