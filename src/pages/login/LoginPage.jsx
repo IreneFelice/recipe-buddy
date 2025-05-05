@@ -7,12 +7,12 @@ import FormRegister from '../../components/forms/register-form/FormRegister.jsx'
 import CustomButton from '../../components/buttons/button/CustomButton.jsx';
 
 function LoginPage() {
-    const [error, setError] = useState('');
+    const {isAuth, authError} = useContext(AuthContext);
     const [showRegister, toggleShowRegister] = useState(false);
     const [newHere, toggleNewHere] = useState(true);
     const [showLogin, toggleShowLogin] = useState(true);
     const [newName, setNewName] = useState('');
-    const {isAuth} = useContext(AuthContext);
+
 
     function handleClickNewHere() {
         toggleShowRegister(true);
@@ -56,10 +56,10 @@ function LoginPage() {
         <div className='inner-page-container'>
 
             <div className={styles['login-container']}>
-                {error && <p className={styles.error}>{error}</p>}
+                {authError && <p className={styles.error}>{authError}</p>}
                 {isAuth && <p>You are logged in. Meet Buddy in the kitchen!</p>}
                 {newName && <p>Thank you {newName}! You can now login:</p>}
-                {showLogin && <LoginForm errorMessage={setError}/>}
+                {showLogin && <LoginForm/>}
             </div>
 
             {newHere && showLogin &&
@@ -82,7 +82,7 @@ function LoginPage() {
                         text='< Back to Login'
                         onClick={resetLoginPage}
                         />
-                    <FormRegister errorMessage={setError} newName={setNewName}/>
+                    <FormRegister newName={setNewName}/>
                 </>)}
             </div>
 

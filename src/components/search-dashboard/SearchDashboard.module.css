@@ -5,7 +5,6 @@ h2 {
 .dashboard-outer-container {
     display: flex;
     justify-self: center;
-    border: purple 4px solid;
     justify-content: center;
     max-width: 100%;
     position: relative;

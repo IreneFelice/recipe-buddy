@@ -46,7 +46,7 @@
 }
 
 .buddy-speaking-parents-container p {
-    font-family: var(--buddy-quote-small);
+    font-family: var(--sharp);
 }
 
 .buddy-speaking-parents-container img {
@@ -88,7 +88,7 @@
     }
 
     .buddy-speaking-parents-container p {
-        font-family: var(--buddy-quote-small);
+        font-family: var(--sharp);
         font-size: 20px;
 
     }

@@ -1,4 +1,4 @@
-import {useContext, useState} from 'react';
+import {useContext, useEffect, useRef, useState} from 'react';
 import {AuthContext} from '../../context/AuthContext.jsx';
 import styles from './Home.module.css';
 import Header from '../../components/header/Header.jsx';
@@ -11,6 +11,13 @@ function Home() {
     const [fullUrl, setFullUrl] = useState('');
     const isLoading = useLoading();
 
+    function handleResultsShown() {
+        const element = document.getElementById('search-results');
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
     return (
         <div className={'inner-page-container'}>
             {isLoading &&
@@ -22,8 +29,8 @@ function Home() {
                 <Header/>
                 {isAuth && (
                     <>
-                        <SearchDashboard passUrl={setFullUrl}/>
-                        <SearchResults fullUrl={fullUrl} setFullUrl={setFullUrl}/>
+                        <SearchDashboard passUrl={setFullUrl} />
+                        <SearchResults fullUrl={fullUrl} setFullUrl={setFullUrl}  onFirstResultsShown={handleResultsShown}/>
                     </>
                 )}
             </div>

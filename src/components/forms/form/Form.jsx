@@ -2,10 +2,8 @@ import { useForm } from 'react-hook-form';
 import styles from './Form.module.css';
 import CustomButton from '../../buttons/button/CustomButton.jsx';
 
-function Form({ fields, onSubmit, defaultValues = {}, buttonLabel = 'Submit'}) {
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        defaultValues
-    });
+function Form({ fields, onSubmit, buttonLabel = 'Submit'}) {
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={styles['form-container']}>

@@ -1,5 +1,5 @@
 import {useForm} from "react-hook-form";
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import styles from './SearchDashboard.module.css';
 import CustomButton from '../buttons/button/CustomButton.jsx';
 import createSearchQuery from "../../helpers/createSearchQuery.js";
@@ -31,13 +31,14 @@ function SearchDashboard({passUrl}) {
     });
     const [selectedIngredients, setSelectedIngredients] = useState([]);
     const [excludedIngredients, setExcludedIngredients] = useState([]);
-    const [searchedResults, toggleSearchedResults] = useState(false);
+    const [searchedResults, toggleSearchedResults] = useState(false); //to change button after first search
 
     useEffect(() => {
         setValue('includedFood', selectedIngredients);
         setValue('excludedFood', excludedIngredients);
         console.log("included, excluded: ", selectedIngredients, excludedIngredients);
     }, [selectedIngredients, excludedIngredients, setValue]);
+
 
     const handleSearchSubmit = (data) => {
         const fullUrlInput = createSearchQuery({
@@ -48,7 +49,6 @@ function SearchDashboard({passUrl}) {
             includedFood: data.includedFood,
             excludedFood: data.excludedFood,
         });
-        console.log("url: ", fullUrlInput);
         passUrl(fullUrlInput);
         toggleSearchedResults(true);
     };
@@ -108,6 +108,7 @@ function SearchDashboard({passUrl}) {
                     </section>
 
                 </form>
+
             </div>
         </>
     );

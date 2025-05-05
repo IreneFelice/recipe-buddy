@@ -56,7 +56,7 @@
 }
 
 .buddy-quote-text p {
-    font-family: var(--buddy-quote-small);
+    font-family: var(--sharp);
     line-height: clamp(1.3rem, 1.6rem, 3rem);
     font-size: clamp(0.8rem, 4vw, 1rem);
     padding: 0 2vw;

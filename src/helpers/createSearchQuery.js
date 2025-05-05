@@ -9,8 +9,6 @@ function createSearchQuery({mealTypeParams, dietParams, difficulty, excludedFood
         `nutrients%5BFASAT%5D=0-${healthy.maxFASAT}`, //Fatty acids saturated, unhealthy fat
         `nutrients%5BFAMS%5D=0-${healthy.maxFAMS}` // healthy fat
     ];
-    // TODO: fine tuning (2/2)
-    // const sugar = Math.max(10, healthy.maxGI / 2);
 
     if(dietParams) {
     console.log("Diet Params: ", dietParams);
@@ -43,7 +41,6 @@ function createSearchQuery({mealTypeParams, dietParams, difficulty, excludedFood
     console.log("query: ", queryParams);
     console.log(baseUrl + '?' + queryParams.join('&'));
     return `${baseUrl}?${queryParams.join('&')}`;
-
 }
 
 export default createSearchQuery;

@@ -46,7 +46,7 @@ function BuddySpeaking({buddyVersion = 'egg', alternativeText = '', login = true
                         {!isAuth && (
                             <div className={styles['button-container']}>
                                 <CustomButton
-                                    text='Go to Log In page'
+                                    text='Go to Log In'
                                     color='blue'
                                     onClick={() => navigate('/login')}
                                 />

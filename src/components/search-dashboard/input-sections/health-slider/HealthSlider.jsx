@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import styles from './HealthSlider.module.css';
 
-function HealthSlider({setValue, register}) {
+function HealthSlider({setValue}) {
     const [level, setLevel] = useState(3);
     const [tooltipVisible, setTooltipVisible] = useState(false);
 
@@ -11,13 +11,12 @@ function HealthSlider({setValue, register}) {
         3: {level: '3', label: "Not too (un)healthy", maxGI: '45', maxFASAT: '6', minFIBTG: '3', maxFAMS: '10', color: '#FFC107'},
         2: {level: '2', label: "Medium unhealthy", maxGI: '60', maxFASAT: '10', minFIBTG: '1', maxFAMS: '7', color: '#F57C00'},
         1: {level: '1', label: "Unhealthy", maxGI: '80', maxFASAT: '15', minFIBTG: '0', maxFAMS: '5', color: '#D32F2F'},
-    }; //TODO: fine tuning (1/2)
+    };
 
     const handleChange = (event) => {
         const newLevel = Number(event.target.value);
         setLevel(newLevel);
         setValue('healthy', healthLevels[newLevel]);
-
         setTooltipVisible(true);
         setTimeout(() => setTooltipVisible(false), 1000);
     };
